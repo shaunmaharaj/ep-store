@@ -129,7 +129,7 @@ class CartLineItem extends React.Component {
       return (
         options[0]._element.map(option => (
           <li className="cart-lineitem-option" key={`_${Math.random().toString(36).substr(2, 9)}`}>
-            <label className="cart-lineitem-option-name">
+            <label htmlFor={`cart_line_item_option_${option._value[0].name}_label`} className="cart-lineitem-option-name">
               {option['display-name']}
 :&nbsp;
             </label>
@@ -140,6 +140,7 @@ class CartLineItem extends React.Component {
         ))
       );
     }
+    return ('');
   }
 
   render() {
