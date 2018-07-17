@@ -30,6 +30,8 @@ class ProductListPaginationTop extends React.Component {
       paginationData: this.props.paginationData,
       paginationPreviousLink: '',
       paginationNextLink: '',
+      selfUri: this.props.categoryUrl,
+      prevselfUri: '',
     };
   }
 
