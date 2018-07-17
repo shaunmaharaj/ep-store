@@ -40,35 +40,21 @@ class SearchResultsItemsMain extends React.Component {
     super(props);
     this.state = {
       searchResultsModel: { links: [] },
-      searchResultsUrl: this.props.searchResultsUrl,
       searchKeywords: this.props.searchKeywords,
     };
   }
 
-  getSearchResults(searchResultsUrl) {
-    login().then(() => {
-      fetch(`${searchResultsUrl}?zoom=${zoomArray.join()}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem(`${Config.cortexApi.scope}_oAuthToken`),
-          },
-        })
-        .then(res => res.json())
-        .then((res) => {
-          this.setState({
-            searchResultsUrl,
-            searchResultsModel: res,
-            searchKeywords: this.props.searchKeywords,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
+  componentDidMount() {
+    this.getSearchData(this.props.searchKeywords);
   }
 
-  getSearchData(event) {
+  componentWillReceiveProps(nextProps) {
+    if (this.state.searchKeywords !== nextProps.searchKeywords) {
+      this.getSearchData(nextProps.searchKeywords);
+    }
+  }
+
+  getSearchData() {
     login().then(() => {
       fetch(`${Config.cortexApi.path}/searches/${Config.cortexApi.scope}/keywords/form?followlocation`,
         {
@@ -91,16 +77,28 @@ class SearchResultsItemsMain extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.getSearchData(this.props.searchKeywords);
+  getSearchResults(searchResultsUrl) {
+    login().then(() => {
+      fetch(`${searchResultsUrl}?zoom=${zoomArray.join()}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem(`${Config.cortexApi.scope}_oAuthToken`),
+          },
+        })
+        .then(res => res.json())
+        .then((res) => {
+          this.setState({
+            searchResultsModel: res,
+            searchKeywords: this.props.searchKeywords,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.state.searchKeywords !== nextProps.searchKeywords) {
-      this.getSearchData(nextProps.searchKeywords);
-    }
-  }
-
+  
   render() {
     if (this.state.searchResultsModel.links.length > 0 && this.state.searchKeywords == this.props.searchKeywords) {
       return (
@@ -108,7 +106,7 @@ class SearchResultsItemsMain extends React.Component {
           <div data-region="categoryTitleRegion" style={{ display: 'block' }}>
             <div>
               <h1 className="view-title">
-Search Results
+                Search Results
               </h1>
             </div>
           </div>
@@ -118,13 +116,13 @@ Search Results
         </div>
       );
     }
-    if (this.state.searchResultsModel.links.length == 0 && this.state.searchResultsModel.pagination && this.state.searchKeywords == this.props.searchKeywords) {
+    if (this.state.searchResultsModel.links.length === 0 && this.state.searchResultsModel.pagination && this.state.searchKeywords === this.props.searchKeywords) {
       return (
         <div className="category-items-container container">
           <div data-region="categoryTitleRegion" style={{ display: 'block' }}>
             <div>
               <h1 className="view-title">
-Search Results
+                Search Results
               </h1>
             </div>
           </div>
@@ -132,7 +130,7 @@ Search Results
           <div data-region="categoryTitleRegion" style={{ display: 'block' }}>
             <div>
               <h3>
-No results found
+                No results found
               </h3>
             </div>
           </div>

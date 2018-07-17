@@ -82,13 +82,13 @@ class RegistrationFormMain extends React.Component {
         if (res.status === 201) {
           this.setState({ failedRegistration: false });
           if (localStorage.getItem(`${Config.cortexApi.scope}_oAuthRole`) === 'PUBLIC') {
-            loginRegistered(this.state.username, this.state.password).then((res_status) => {
-              if (res_status === 401) {
+            loginRegistered(this.state.username, this.state.password).then((resStatus) => {
+              if (resStatus === 401) {
                 this.setState({ failedLogin: true });
               }
-              if (res_status === 400) {
+              if (resStatus === 400) {
                 this.setState({ failedLogin: true });
-              } else if (res_status === 200) {
+              } else if (resStatus === 200) {
                 if (this.props.location.state && this.props.location.returnPage) {
                   this.props.history.push(this.props.location.state.returnPage);
                 } else {
@@ -125,7 +125,7 @@ class RegistrationFormMain extends React.Component {
           <div className="container">
             <form className="form-horizontal">
               <div className="form-group">
-                <label data-el-label="registrationForm.firstName" className="control-label registration-form-label">
+                <label htmlFor="registration_form_firstName_label" data-el-label="registrationForm.firstName" className="control-label registration-form-label">
                   <span className="required-label">
                     *
                   </span>
@@ -137,7 +137,7 @@ class RegistrationFormMain extends React.Component {
                 </div>
               </div>
               <div className="form-group">
-                <label data-el-label="registrationForm.lastName" className="control-label registration-form-label">
+                <label htmlFor="registration_form_lastName_label" data-el-label="registrationForm.lastName" className="control-label registration-form-label">
                   <span className="required-label">
                     *
                   </span>
@@ -149,7 +149,7 @@ class RegistrationFormMain extends React.Component {
                 </div>
               </div>
               <div className="form-group">
-                <label data-el-label="registrationForm.emailUsername" className="control-label registration-form-label">
+                <label htmlFor="registration_form_emailUsername_label" data-el-label="registrationForm.emailUsername" className="control-label registration-form-label">
                   <span className="required-label">
                     *
                   </span>
@@ -161,7 +161,7 @@ class RegistrationFormMain extends React.Component {
                 </div>
               </div>
               <div className="form-group">
-                <label data-el-label="registrationForm.password" className="control-label registration-form-label">
+                <label htmlFor="registration_form_password_label" data-el-label="registrationForm.password" className="control-label registration-form-label">
                   <span className="required-label">
                     *
                   </span>
@@ -173,7 +173,7 @@ class RegistrationFormMain extends React.Component {
                 </div>
               </div>
               <div className="form-group">
-                <label data-el-label="registrationForm.passwordConfirm" className="control-label registration-form-label">
+                <label htmlFor="registration_form_passwordConfirm_label" data-el-label="registrationForm.passwordConfirm" className="control-label registration-form-label">
                   <span className="required-label">
                     *
                   </span>

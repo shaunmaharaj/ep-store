@@ -19,8 +19,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-const Config = require('Config');
-
 class AppHeaderSearchMain extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +44,7 @@ class AppHeaderSearchMain extends React.Component {
     return (
       <div>
         <div className="main-search-container" style={{ display: 'block' }}>
-          <form className="navbar-form" id="header_navbar_search_container_form" ref="form" onSubmit={this.search}>
+          <form className="navbar-form" id="header_navbar_search_container_form" onSubmit={this.search}>
             <div className="form-group">
               <input className="input-search header-search-input" id="header_navbar_search_container_input" type="text" onChange={this.handleChange} placeholder="search" />
             </div>

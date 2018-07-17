@@ -119,7 +119,7 @@ class AppModalLoginMain extends React.Component {
                   </div>
                   <div className="register-cell">
                     <Link to="/registration">
-                      <button className="btn-auth-register btn btn-link" id="login_modal_register_button" data-toggle="collapse" data-target=".navbar-collapse" type="button" onClick={this.registerNewUser}>
+                      <button className="btn-auth-register btn btn-link" id="login_modal_register_button" data-toggle="collapse" data-target=".navbar-collapse" type="button" onClick={AppModalLoginMain.registerNewUser}>
                         Register
                       </button>
                     </Link>

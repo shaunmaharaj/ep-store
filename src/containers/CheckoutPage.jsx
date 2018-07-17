@@ -55,6 +55,10 @@ class CheckoutPage extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchOrderData();
+  }
+
   fetchOrderData() {
     login().then(() => {
       fetch(`${Config.cortexApi.path}/?zoom=${zoomArray.join()}`,
@@ -74,10 +78,6 @@ class CheckoutPage extends React.Component {
           console.log(error);
         });
     });
-  }
-
-  componentDidMount() {
-    this.fetchOrderData();
   }
 
   newAddress() {
@@ -155,11 +155,11 @@ class CheckoutPage extends React.Component {
                       <li>
                         <span className="address-city" data-el-value="address.city">
                           {address.locality}
-,&nbsp;
+                          ,&nbsp;
                         </span>
                         <span className="address-region" data-el-value="address.region">
                           {address.region}
-,&nbsp;
+                          ,&nbsp;
                         </span>
                         <span className="address-country" data-el-value="address.country">
                           {address['country-name']}
@@ -173,11 +173,11 @@ class CheckoutPage extends React.Component {
                 </label>
               </div>
               <div className="address-btn-cell">
-                <button className="btn checkout-edit-address-btn" data-el-label="checkout.editAddressBtn" onClick={() => { this.editAddress(shippingAddress._description[0].self.href); }}>
-Edit
+                <button className="btn checkout-edit-address-btn" data-el-label="checkout.editAddressBtn" type="button" onClick={() => { this.editAddress(shippingAddress._description[0].self.href); }}>
+                  Edit
                 </button>
-                <button className="btn checkout-delete-address-btn" data-el-label="checkout.deleteAddressBtn" onClick={() => { this.deleteAddress(shippingAddress._description[0].self.href); }}>
-Delete
+                <button className="btn checkout-delete-address-btn" data-el-label="checkout.deleteAddressBtn" type="button" onClick={() => { this.deleteAddress(shippingAddress._description[0].self.href); }}>
+                  Delete
                 </button>
               </div>
             </div>
@@ -188,7 +188,7 @@ Delete
     return (
       <div>
         <p data-el-value="checkout.noShippingAddressesMsg">
-You have no saved shipping addresses.
+          You have no saved shipping addresses.
         </p>
       </div>
     );
@@ -199,13 +199,13 @@ You have no saved shipping addresses.
       <div data-region="shippingAddressesRegion" style={{ display: 'block' }}>
         <div>
           <h2>
-Shipping Address
+            Shipping Address
           </h2>
           <div data-region="shippingAddressSelectorsRegion" className="checkout-region-inner-container">
             {this.renderShippingAddress()}
           </div>
           <button className="btn btn-primary checkout-new-address-btn" data-el-label="checkout.newShippingAddressBtn" onClick={() => { this.newAddress(); }}>
-Add a New Address
+            Add a New Address
           </button>
         </div>
       </div>
@@ -241,7 +241,7 @@ Add a New Address
     return (
       <div>
         <p data-el-value="checkout.noShippingOptionsMsg">
-There are no shipping options available for your chosen shipping address.
+          There are no shipping options available for your chosen shipping address.
         </p>
       </div>
     );
@@ -252,7 +252,7 @@ There are no shipping options available for your chosen shipping address.
       return (
         <div>
           <h2>
-Shipping Options
+            Shipping Options
           </h2>
           <div data-region="shippingOptionSelectorsRegion">
             {this.renderShippingOptions()}
@@ -293,11 +293,11 @@ Shipping Options
                       <li>
                         <span className="address-city" data-el-value="address.city">
                           {address.locality}
-,&nbsp;
+                          ,&nbsp;
                         </span>
                         <span className="address-region" data-el-value="address.region">
                           {address.region}
-,&nbsp;
+                          ,&nbsp;
                         </span>
                         <span className="address-country" data-el-value="address.country">
                           {address['country-name']}
@@ -311,11 +311,11 @@ Shipping Options
                 </label>
               </div>
               <div className="address-btn-cell">
-                <button className="btn checkout-edit-address-btn" data-el-label="checkout.editAddressBtn" onClick={() => { this.editAddress(billingAddress._description[0].self.href); }}>
-Edit
+                <button className="btn checkout-edit-address-btn" type="button" data-el-label="checkout.editAddressBtn" onClick={() => { this.editAddress(billingAddress._description[0].self.href); }}>
+                  Edit
                 </button>
-                <button className="btn checkout-delete-address-btn" data-el-label="checkout.deleteAddressBtn" onClick={() => { this.deleteAddress(billingAddress._description[0].self.href); }}>
-Delete
+                <button className="btn checkout-delete-address-btn" type="button" data-el-label="checkout.deleteAddressBtn" onClick={() => { this.deleteAddress(billingAddress._description[0].self.href); }}>
+                  Delete
                 </button>
               </div>
             </div>
@@ -326,7 +326,7 @@ Delete
     return (
       <div>
         <p data-el-value="checkout.noBillingAddressesMsg">
-You have no saved billing addresses.
+          You have no saved billing addresses.
         </p>
       </div>
     );
@@ -336,13 +336,13 @@ You have no saved billing addresses.
     return (
       <div>
         <h2>
-Billing Address
+          Billing Address
         </h2>
         <div data-region="billingAddressSelectorsRegion" className="checkout-region-inner-container">
           {this.renderBillingAddress()}
         </div>
-        <button className="btn btn-primary checkout-new-address-btn" data-el-label="checkout.newBillingAddressBtn" onClick={() => { this.newAddress(); }}>
-Add a New Address
+        <button className="btn btn-primary checkout-new-address-btn" type="button" data-el-label="checkout.newBillingAddressBtn" onClick={() => { this.newAddress(); }}>
+          Add a New Address
         </button>
       </div>
     );
@@ -359,7 +359,7 @@ Add a New Address
                 <div data-region="checkoutTitleRegion" className="checkout-title-container" style={{ display: 'block' }}>
                   <div>
                     <h1 className="view-title">
-Checkout Summary
+                      Checkout Summary
                     </h1>
                   </div>
                 </div>
@@ -376,17 +376,17 @@ Checkout Summary
                   <div data-region="paymentMethodsRegion" style={{ display: 'block' }}>
                     <div>
                       <h2>
-Payment Method
+                        Payment Method
                       </h2>
                       <div data-region="paymentMethodSelectorsRegion" className="checkout-region-inner-container">
                         <div>
                           <p data-el-value="checkout.noPaymentMethodsMsg">
-You have no saved payment method.
+                            You have no saved payment method.
                           </p>
                         </div>
                       </div>
-                      <button className="btn btn-primary checkout-new-payment-btn" data-el-label="checkout.newPaymentMethodBtn" onClick={() => { this.newPayment(); }}>
-Add a New Payment Method
+                      <button className="btn btn-primary checkout-new-payment-btn" type="button" data-el-label="checkout.newPaymentMethodBtn" onClick={() => { this.newPayment(); }}>
+                        Add a New Payment Method
                       </button>
                     </div>
                   </div>
@@ -398,8 +398,8 @@ Add a New Payment Method
                         <CheckoutSummaryList data={this.state.orderData} />
                       </div>
                       <div data-region="checkoutActionRegion" className="checkout-submit-container" style={{ display: 'block' }}>
-                        <button className="btn-cmd-submit-order" data-el-label="checkout.submitOrder" disabled>
-Complete Purchase
+                        <button className="btn-cmd-submit-order" type="button" data-el-label="checkout.submitOrder" disabled>
+                          Complete Purchase
                         </button>
                       </div>
                     </div>

@@ -56,7 +56,6 @@ class ProductDisplayItemMain extends React.Component {
     super(props);
     this.state = {
       productData: undefined,
-      selfUri: this.props.productUrl,
       quantity: 1,
       addToCartFailedMessage: '',
     };
@@ -135,7 +134,13 @@ class ProductDisplayItemMain extends React.Component {
 
   addToCart(event) {
     login().then(() => {
-      fetch(this.state.productData._addtocartform[0].self.href,
+      const addToCartLink = this.state.productData._addtocartform[0].links.find((link) => {
+        if (link.rel === 'addtodefaultcartaction') {
+          return link;
+        }
+        return ('');
+      });
+      fetch(addToCartLink.href,
         {
           method: 'post',
           headers: {
@@ -152,8 +157,8 @@ class ProductDisplayItemMain extends React.Component {
           } else {
             let debugMessages = '';
             res.json().then((json) => {
-              for (const message in json.messages) {
-                debugMessages = debugMessages.concat(`- ${json.messages[message]['debug-message']} \n `);
+              for (let i = 0; i < json.messages.length; i++) {
+                debugMessages = debugMessages.concat(`- ${json.messages[i]['debug-message']} \n `);
               }
             }).then(() => this.setState({ addToCartFailedMessage: debugMessages }));
           }
@@ -294,10 +299,10 @@ class ProductDisplayItemMain extends React.Component {
                           {availabilityString}
                         </div>
                       ) : (
-                        <div>
-                          {availabilityString}
-                        </div>
-                      )}
+                          <div>
+                            {availabilityString}
+                          </div>
+                        )}
                     </label>
                   </li>
                   <li className={`itemdetail-release-date${this.state.productData._availability[0]['release-date'] ? '' : ' is-hidden'}`} data-region="itemAvailabilityDescriptionRegion">
