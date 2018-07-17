@@ -168,7 +168,7 @@ class CartLineItem extends React.Component {
           <img src={Config.skuImagesS3Url.replace('%sku%', this.props.item._item[0]._code[0].code)} onError={(e) => { e.target.src = imgPlaceholder; }} alt="No Image Available" className="cart-lineitem-thumbnail" />
         </td>
         <td className="cart-lineitem-title-col" data-el-value="lineItem.displayName">
-          <Link to={`/itemdetail/${encodeURIComponent(this.props.item._item[0].self.href)}`}>
+          <Link to={`/itemdetail/${encodeURIComponent(this.props.item._item[0].self.uri)}`}>
             {this.props.item._item[0]._definition[0]['display-name']}
           </Link>
         </td>
