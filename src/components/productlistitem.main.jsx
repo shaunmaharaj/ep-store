@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router-dom';
 import { login } from '../utils/AuthService';
 import imgPlaceholder from '../images/img-placeholder.png';
@@ -43,6 +44,10 @@ const zoomArray = [
 ];
 
 class ProductListItemMain extends React.Component {
+  static propTypes = {
+    productUrl: ReactRouterPropTypes.productUrl.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +71,8 @@ class ProductListItemMain extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }

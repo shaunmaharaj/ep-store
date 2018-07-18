@@ -56,7 +56,8 @@ class ProfilePage extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }

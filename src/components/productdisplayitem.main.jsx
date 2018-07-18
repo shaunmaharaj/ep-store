@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { withRouter } from 'react-router';
 import { login } from '../utils/AuthService';
 import imgPlaceholder from '../images/img-placeholder.png';
@@ -52,6 +53,11 @@ const zoomArray = [
 ];
 
 class ProductDisplayItemMain extends React.Component {
+  static propTypes = {
+    history: ReactRouterPropTypes.history.isRequired,
+    productUrl: ReactRouterPropTypes.productUrl.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -80,7 +86,8 @@ class ProductDisplayItemMain extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
@@ -101,7 +108,8 @@ class ProductDisplayItemMain extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
@@ -127,19 +135,15 @@ class ProductDisplayItemMain extends React.Component {
           this.props.history.push(`/itemdetail/${encodeURIComponent(res.self.uri)}`);
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
 
   addToCart(event) {
     login().then(() => {
-      const addToCartLink = this.state.productData._addtocartform[0].links.find((link) => {
-        if (link.rel === 'addtodefaultcartaction') {
-          return link;
-        }
-        return ('');
-      });
+      const addToCartLink = this.state.productData._addtocartform[0].links.find(link => link.rel === 'addtodefaultcartaction');
       fetch(addToCartLink.href,
         {
           method: 'post',
@@ -164,7 +168,8 @@ class ProductDisplayItemMain extends React.Component {
           }
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
     event.preventDefault();
@@ -192,7 +197,7 @@ class ProductDisplayItemMain extends React.Component {
         </div>
       ));
     }
-    return ('');
+    return null;
   }
 
   renderAttributes() {
@@ -208,7 +213,7 @@ class ProductDisplayItemMain extends React.Component {
         </tr>
       ));
     }
-    return ('');
+    return null;
   }
 
   render() {

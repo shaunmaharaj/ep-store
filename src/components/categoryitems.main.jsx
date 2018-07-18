@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { login } from '../utils/AuthService';
 import ProductListMain from './productlist.main';
 import ProductListPaginationTop from './productlistpaginationtop.main';
@@ -25,6 +26,10 @@ import ProductListPaginationBottom from './productlistpaginationbottom.main';
 const Config = require('Config');
 
 class CategoryItemsMain extends React.Component {
+  static propTypes = {
+    categoryUrl: ReactRouterPropTypes.categoryUrl.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +55,8 @@ class CategoryItemsMain extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
@@ -73,7 +79,8 @@ class CategoryItemsMain extends React.Component {
             });
           })
           .catch((error) => {
-            console.log(error);
+            // eslint-disable-next-line no-console
+            console.error(error);
           });
       });
     }

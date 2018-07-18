@@ -17,9 +17,14 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import ProductListItemMain from './productlistitem.main';
 
 class ProductListMain extends React.Component {
+  static propTypes = {
+    productData: ReactRouterPropTypes.productData.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +41,7 @@ class ProductListMain extends React.Component {
           </li>
         );
       }
-      return ('');
+      return null;
     });
   }
 

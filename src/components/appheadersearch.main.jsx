@@ -17,9 +17,15 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import { withRouter } from 'react-router';
 
 class AppHeaderSearchMain extends React.Component {
+  static propTypes = {
+    history: ReactRouterPropTypes.history.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {

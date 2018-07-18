@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { withRouter } from 'react-router';
 import {
   login, loginRegistered, registerUser,
@@ -25,6 +26,11 @@ import {
 const Config = require('Config');
 
 class RegistrationFormMain extends React.Component {
+  static propTypes = {
+    location: ReactRouterPropTypes.location.isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {

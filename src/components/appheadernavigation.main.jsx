@@ -52,13 +52,15 @@ class AppHeaderNavigationMain extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
 
   renderCategories() {
-    return this.state.navigations.map((category) => {
+    const { navigations } = this.state;
+    return navigations.map((category) => {
       if (category._child) {
         return (
           <li className="nav-item dropdown" key={category.name} data-name={category['display-name']} data-el-container="category-nav-item-container">

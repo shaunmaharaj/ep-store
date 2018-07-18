@@ -18,12 +18,17 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router-dom';
 
 let paginationPreviousLinkVar = '';
 let paginationNextLinkVar = '';
 
 class ProductListPaginationBottom extends React.Component {
+  static propTypes = {
+    paginationData: ReactRouterPropTypes.paginationData.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {

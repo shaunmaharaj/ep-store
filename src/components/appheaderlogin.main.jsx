@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { login, logout } from '../utils/AuthService';
 
@@ -25,6 +26,10 @@ const Config = require('Config');
 class AppHeaderLoginMain extends React.Component {
   static isLoggedIn() {
     return (localStorage.getItem(`${Config.cortexApi.scope}_oAuthRole`) === 'REGISTERED');
+  }
+
+  static propTypes = {
+    history: ReactRouterPropTypes.history.isRequired,
   }
 
   logoutRegisteredUser() {

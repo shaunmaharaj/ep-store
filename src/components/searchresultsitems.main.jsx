@@ -17,6 +17,7 @@
  */
 
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { login } from '../utils/AuthService';
 import ProductListMain from './productlist.main';
 import ProductListPaginationTop from './productlistpaginationtop.main';
@@ -36,6 +37,10 @@ const zoomArray = [
 ];
 
 class SearchResultsItemsMain extends React.Component {
+  static propTypes = {
+    searchKeywords: ReactRouterPropTypes.searchKeywords.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -72,7 +77,8 @@ class SearchResultsItemsMain extends React.Component {
           this.getSearchResults(res.self.href);
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
@@ -94,7 +100,8 @@ class SearchResultsItemsMain extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error);
+          // eslint-disable-next-line no-console
+          console.error(error);
         });
     });
   }
