@@ -125,7 +125,8 @@ class PaymentFormMain extends React.Component {
           'display-name': `${cardHolderName}'s ${card} ending in: ****${cardNumber.substring(cardNumber.length - 4)}`,
           token: Math.random().toString(36).substr(2, 9),
           /* token is being randomly generated here to be passed to the demo payment gateway
-          ** in the real world this token should be received from the actual payment gateway
+          ** in a true implementation this token should be received from the actual payment gateway
+          ** when doing so, make sure you're compliant with PCI DSS
           */
         }),
       }).then((res) => {
