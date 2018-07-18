@@ -69,7 +69,6 @@ class CategoryItemsMain extends React.Component {
           .then((res) => {
             this.setState({
               selfUri: nextProps.categoryUrl,
-              prevselfUri: this.state.selfUri,
               categoryModel: res,
             });
           })
@@ -81,7 +80,7 @@ class CategoryItemsMain extends React.Component {
   }
 
   render() {
-    if (this.state.categoryModel.links.length > 0 && this.state.selfUri == this.props.categoryUrl) {
+    if (this.state.categoryModel.links.length > 0 && this.state.selfUri === this.props.categoryUrl) {
       return (
         <div className="category-items-container container">
           <div data-region="categoryTitleRegion" style={{ display: 'block' }}>

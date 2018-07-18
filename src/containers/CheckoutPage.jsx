@@ -133,8 +133,7 @@ class CheckoutPage extends React.Component {
       }
       return (
         shippingAddresses.map((shippingAddress, index) => {
-          const name = shippingAddress._description[0].name;
-          const address = shippingAddress._description[0].address;
+          const { name, address } = shippingAddress._description[0];
           return (
             <div key={`shippingOption_${Math.random().toString(36).substr(2, 9)}`}>
               <div className="address-ctrl-cell" data-region="checkoutAddressSelector">
@@ -204,7 +203,7 @@ class CheckoutPage extends React.Component {
           <div data-region="shippingAddressSelectorsRegion" className="checkout-region-inner-container">
             {this.renderShippingAddress()}
           </div>
-          <button className="btn btn-primary checkout-new-address-btn" data-el-label="checkout.newShippingAddressBtn" onClick={() => { this.newAddress(); }}>
+          <button className="btn btn-primary checkout-new-address-btn" data-el-label="checkout.newShippingAddressBtn" type="button" onClick={() => { this.newAddress(); }}>
             Add a New Address
           </button>
         </div>
@@ -260,6 +259,7 @@ class CheckoutPage extends React.Component {
         </div>
       );
     }
+    return ('');
   }
 
   renderBillingAddress() {
@@ -271,8 +271,7 @@ class CheckoutPage extends React.Component {
       }
       return (
         billingAddresses.map((billingAddress, index) => {
-          const name = billingAddress._description[0].name;
-          const address = billingAddress._description[0].address;
+          const { name, address } = billingAddress._description[0];
           return (
             <div key={`billingOption_${Math.random().toString(36).substr(2, 9)}`}>
               <div className="address-ctrl-cell" data-region="checkoutAddressSelector">

@@ -30,8 +30,6 @@ class ProductListPaginationTop extends React.Component {
       paginationData: this.props.paginationData,
       paginationPreviousLink: '',
       paginationNextLink: '',
-      selfUri: this.props.categoryUrl,
-      prevselfUri: '',
     };
   }
 
@@ -47,7 +45,6 @@ class ProductListPaginationTop extends React.Component {
       }
     }
     this.setState({
-      paginationData: this.state.paginationData,
       paginationPreviousLink: paginationPreviousLinkVar,
       paginationNextLink: paginationNextLinkVar,
     });

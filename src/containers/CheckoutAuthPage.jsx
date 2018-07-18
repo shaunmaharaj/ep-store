@@ -115,28 +115,28 @@ class CheckoutAuthPage extends React.Component {
         <div className="app-main" data-region="appMain" style={{ display: 'block' }}>
           <div className="container">
             <h3>
-Sign In to proceed to checkout
+              Sign In to proceed to checkout
             </h3>
             <div className="checkout-auth-option-list equalize">
               <div data-region="checkoutAutRegisterOptionRegion" style={{ display: 'block' }}>
                 <div className="checkout-auth-option-container" style={{ minHeight: '259px' }}>
                   <h3>
-Create an account
+                    Create an account
                   </h3>
                   <p>
-Create an account with us to enjoy fast and easy checkout, online address book, purchase history and more!
+                    Create an account with us to enjoy fast and easy checkout, online address book, purchase history and more!
                   </p>
-                  <button className="btn btn-primary checkout-auth-option-register-btn" data-el-label="checkoutAuthOption.register" onClick={() => { this.props.history.push('/registration', { returnPage: '/checkout' }); }}>
-                                        Register
+                  <button className="btn btn-primary checkout-auth-option-register-btn" data-el-label="checkoutAuthOption.register" type="button" onClick={() => { this.props.history.push('/registration', { returnPage: '/checkout' }); }}>
+                    Register
                   </button>
                 </div>
               </div>
               <div data-region="checkoutAuthLoginOptionRegion" style={{ display: 'block' }}>
                 <div className="checkout-auth-option-container" style={{ minHeight: '259px' }}>
                   <h3>
-I have an account
+                    I have an account
                   </h3>
-                  <form role="form" onSubmit={this.loginRegisteredUser}>
+                  <form onSubmit={this.loginRegisteredUser}>
                     <div className="auth-feedback-container" data-region="authLoginFormFeedbackRegion">
                       {this.state.failedLogin ? ('Your username or password is invalid.') : ('')}
                     </div>
@@ -144,27 +144,27 @@ I have an account
                     <div className="form-group checkout-auth-form-group">
                       <label htmlFor="OAuthUserName" data-el-label="checkoutAuthOption.username" className="control-label">
                         <span className="required-label">
-*
+                          *
                         </span>
                         {' '}
-Username:
+                        Username:
                       </label>
-                      <input className="form-control" id="registration_form_emailUsername" name="OAuthUserName" type="text" autoFocus="autofocus" onChange={this.setUsername} />
+                      <input className="form-control" id="registration_form_emailUsername" name="OAuthUserName" type="text" onChange={this.setUsername} />
                     </div>
                     <div className="form-group checkout-auth-form-group">
                       <label htmlFor="OAuthPassword" data-el-label="checkoutAuthOption.password" className="control-label">
                         <span className="required-label">
-*
+                          *
                         </span>
                         {' '}
-Password:
+                        Password:
                       </label>
                       <input className="form-control" id="registration_form_password" name="OAuthPassword" type="password" onChange={this.setPassword} />
                     </div>
                     <input id="OAuthScope" name="OAuthScope" list="oAuthScopeList" type="hidden" value="vestri" />
                     <input id="OAuthRole" name="OAuthRole" list="oAuthRoleList" type="hidden" value="REGISTERED" />
                     <button className="btn btn-primary checkout-auth-option-login-btn" data-el-label="checkoutAuthOption.login" type="submit">
-Login and continue
+                      Login and continue
                     </button>
                   </form>
                 </div>
@@ -172,28 +172,28 @@ Login and continue
               <div data-region="checkoutAuthAnonymousOptionRegion" style={{ display: 'block' }}>
                 <div className="checkout-auth-option-container">
                   <h3>
-Continue without an account
+                    Continue without an account
                   </h3>
                   <p>
-To proceed without setting up an account, please enter a valid email and click on "Continue to checkout"
+                    To proceed without setting up an account, please enter a valid email and click on &ldquo;Continue to checkout&rdquo;
                     {' '}
                   </p>
-                  <form role="form" onSubmit={this.submitEmail}>
+                  <form onSubmit={this.submitEmail}>
                     <div className="anonymous-checkout-feedback-container" data-region="anonymousCheckoutFeedbackRegion">
                       {this.state.badEmail ? ('Your email is invalid/incomplete') : ('')}
                     </div>
                     <div className="form-group checkout-auth-form-group">
                       <label htmlFor="Email" data-el-label="checkoutAuthOption.email" className="control-label">
                         <span className="required-label">
-*
+                          *
                         </span>
                         {' '}
-Email:
+                        Email:
                       </label>
                       <input id="Email" name="Email" className="form-control" type="email" onChange={this.setEmail} />
                     </div>
                     <button className="btn btn-primary checkout-auth-option-anonymous-checkout-btn" data-el-label="checkoutAuthOption.anonymousCheckout" type="submit">
-Continue to checkout
+                      Continue to checkout
                     </button>
                   </form>
                 </div>

@@ -221,20 +221,17 @@ class ProductDisplayItemMain extends React.Component {
       if (this.state.productData._price) {
         itemPrice = this.state.productData._price[0]['purchase-price'][0].display;
       }
-      let availability = false;
+      let availability = (this.state.productData._addtocartform[0].links.length > 0);
       let availabilityString = '';
       if (this.state.productData._availability.length >= 0) {
         if (this.state.productData._availability[0].state === 'AVAILABLE') {
-          availability = true;
           availabilityString = 'In Stock';
         } else if (this.state.productData._availability[0].state === 'AVAILABLE_FOR_PRE_ORDER') {
-          availability = true;
           availabilityString = 'Pre-order';
         } else if (this.state.productData._availability[0].state === 'AVAILABLE_FOR_BACK_ORDER') {
           availability = true;
           availabilityString = 'Back-order';
         } else {
-          availability = false;
           availabilityString = 'Out of Stock';
         }
       }
@@ -299,10 +296,10 @@ class ProductDisplayItemMain extends React.Component {
                           {availabilityString}
                         </div>
                       ) : (
-                          <div>
-                            {availabilityString}
-                          </div>
-                        )}
+                        <div>
+                          {availabilityString}
+                        </div>
+                      )}
                     </label>
                   </li>
                   <li className={`itemdetail-release-date${this.state.productData._availability[0]['release-date'] ? '' : ' is-hidden'}`} data-region="itemAvailabilityDescriptionRegion">

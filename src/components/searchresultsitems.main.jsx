@@ -98,9 +98,9 @@ class SearchResultsItemsMain extends React.Component {
         });
     });
   }
-  
+
   render() {
-    if (this.state.searchResultsModel.links.length > 0 && this.state.searchKeywords == this.props.searchKeywords) {
+    if (this.state.searchResultsModel.links.length > 0 && this.state.searchKeywords === this.props.searchKeywords) {
       return (
         <div className="category-items-container container">
           <div data-region="categoryTitleRegion" style={{ display: 'block' }}>

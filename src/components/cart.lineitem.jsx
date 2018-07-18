@@ -131,7 +131,7 @@ class CartLineItem extends React.Component {
           <li className="cart-lineitem-option" key={`_${Math.random().toString(36).substr(2, 9)}`}>
             <label htmlFor={`cart_line_item_option_${option._value[0].name}_label`} className="cart-lineitem-option-name">
               {option['display-name']}
-:&nbsp;
+              :&nbsp;
             </label>
             <span className="cart-lineitem-option-value">
               {option._value[0]['display-name']}
@@ -144,8 +144,7 @@ class CartLineItem extends React.Component {
   }
 
   render() {
-    var availability = (this.props.item._availability[0].state === 'AVAILABLE');
-    var availability = false;
+    let availability = (this.props.item._availability[0].state === 'AVAILABLE');
     let availabilityString = '';
     if (this.props.item._availability.length >= 0) {
       if (this.props.item._availability[0].state === 'AVAILABLE') {
@@ -165,7 +164,7 @@ class CartLineItem extends React.Component {
     return (
       <tr>
         <td className="cart-lineitem-thumbnail-col" data-el-value="lineItem.thumbnail">
-          <img src={Config.skuImagesS3Url.replace('%sku%', this.props.item._item[0]._code[0].code)} onError={(e) => { e.target.src = imgPlaceholder; }} alt="No Image Available" className="cart-lineitem-thumbnail" />
+          <img src={Config.skuImagesS3Url.replace('%sku%', this.props.item._item[0]._code[0].code)} onError={(e) => { e.target.src = imgPlaceholder; }} alt="default" className="cart-lineitem-thumbnail" />
         </td>
         <td className="cart-lineitem-title-col" data-el-value="lineItem.displayName">
           <Link to={`/itemdetail/${encodeURIComponent(this.props.item._item[0].self.uri)}`}>
@@ -192,8 +191,8 @@ class CartLineItem extends React.Component {
               )}
             </li>
             <li className={`category-item-release-date${this.props.item._availability[0]['release-date'] ? '' : ' is-hidden'}`} data-region="itemAvailabilityDescriptionRegion">
-              <label className="cart-lineitem-releasedate-label">
-Expected Release Date:&nbsp;
+              <label htmlFor="cart_lineitem_releasedate_label" className="cart-lineitem-releasedate-label">
+                Expected Release Date:&nbsp;
               </label>
               <span className="cart-lineitem-release-date-value">
                 {(this.props.item._availability[0]['release-date']) ? this.props.item._availability[0]['release-date']['display-value'] : ''}
@@ -214,37 +213,37 @@ Expected Release Date:&nbsp;
         <td className="cart-lineitem-quantity-col" data-el-value="lineItem.quantity">
           <select className="cart-lineitem-quantity-select form-control" id="cart-lineItem-select-quantity" name="cart-lineItem-select-quantity" disabled={this.props.isLoading} value={this.state.quantity} onChange={this.handleQuantityChange}>
             <option value="0">
-0
+              0
             </option>
             <option value="1">
-1
+              1
             </option>
             <option value="2">
-2
+              2
             </option>
             <option value="3">
-3
+              3
             </option>
             <option value="4">
-4
+              4
             </option>
             <option value="5">
-5
+              5
             </option>
             <option value="6">
-6
+              6
             </option>
             <option value="7">
-7
+              7
             </option>
             <option value="8">
-8
+              8
             </option>
             <option value="9">
-9
+              9
             </option>
             <option value="10">
-10
+              10
             </option>
           </select>
         </td>
@@ -259,10 +258,10 @@ Expected Release Date:&nbsp;
         </td>
 
         <td className="cart-lineitem-remove-btn-col">
-          <button className="btn btn-cart-removelineitem" data-el-label="lineItem.removeBtn" disabled={this.props.isLoading} onClick={this.handleRemoveBtnClicked}>
+          <button className="btn btn-cart-removelineitem" type="button" data-el-label="lineItem.removeBtn" disabled={this.props.isLoading} onClick={this.handleRemoveBtnClicked}>
             <span className="icon" />
             <span className="btn-text">
-Remove
+              Remove
             </span>
           </button>
         </td>
