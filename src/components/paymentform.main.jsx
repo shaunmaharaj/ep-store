@@ -124,6 +124,9 @@ class PaymentFormMain extends React.Component {
         body: JSON.stringify({
           'display-name': `${cardHolderName}'s ${card} ending in: ****${cardNumber.substring(cardNumber.length - 4)}`,
           token: Math.random().toString(36).substr(2, 9),
+          /* token is being randomly generated here to be passed to the demo payment gateway
+          ** in the real world this token should be received from the actual payment gateway
+          */
         }),
       }).then((res) => {
         if (res.status === 400) {
