@@ -18,6 +18,7 @@
 
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { login } from '../utils/AuthService';
 import imgPlaceholder from '../images/img-placeholder.png';
@@ -55,7 +56,7 @@ const zoomArray = [
 class ProductDisplayItemMain extends React.Component {
   static propTypes = {
     history: ReactRouterPropTypes.history.isRequired,
-    productUrl: ReactRouterPropTypes.productUrl.isRequired,
+    productUrl: PropTypes.string.isRequired,
   }
 
   constructor(props) {

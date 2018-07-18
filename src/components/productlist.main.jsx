@@ -18,11 +18,12 @@
 
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import ProductListItemMain from './productlistitem.main';
 
 class ProductListMain extends React.Component {
   static propTypes = {
-    productData: ReactRouterPropTypes.productData.isRequired,
+    productData: PropTypes.array.isRequired,
   }
 
   constructor(props) {

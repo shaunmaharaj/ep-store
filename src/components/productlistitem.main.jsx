@@ -45,7 +45,7 @@ const zoomArray = [
 
 class ProductListItemMain extends React.Component {
   static propTypes = {
-    productUrl: ReactRouterPropTypes.productUrl.isRequired,
+    // productUrl: ReactRouterPropTypes.productUrl.isRequired,
   }
 
   constructor(props) {

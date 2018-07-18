@@ -18,6 +18,7 @@
 
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import { login } from '../utils/AuthService';
 import ProductListMain from './productlist.main';
 import ProductListPaginationTop from './productlistpaginationtop.main';
@@ -38,7 +39,7 @@ const zoomArray = [
 
 class SearchResultsItemsMain extends React.Component {
   static propTypes = {
-    searchKeywords: ReactRouterPropTypes.searchKeywords.isRequired,
+    searchKeywords: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -50,7 +51,8 @@ class SearchResultsItemsMain extends React.Component {
   }
 
   componentDidMount() {
-    this.getSearchData(this.props.searchKeywords);
+    const { searchKeywords } = this.props;
+    this.getSearchData(searchKeywords);
   }
 
   componentWillReceiveProps(nextProps) {

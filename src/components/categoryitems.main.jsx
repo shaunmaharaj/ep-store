@@ -18,6 +18,7 @@
 
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import { login } from '../utils/AuthService';
 import ProductListMain from './productlist.main';
 import ProductListPaginationTop from './productlistpaginationtop.main';
@@ -27,7 +28,7 @@ const Config = require('Config');
 
 class CategoryItemsMain extends React.Component {
   static propTypes = {
-    categoryUrl: ReactRouterPropTypes.categoryUrl.isRequired,
+    categoryUrl: PropTypes.string.isRequired,
   }
 
   constructor(props) {

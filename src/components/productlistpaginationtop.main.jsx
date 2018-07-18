@@ -19,6 +19,7 @@
 
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 let paginationPreviousLinkVar = '';
@@ -26,7 +27,7 @@ let paginationNextLinkVar = '';
 
 class ProductListPaginationTop extends React.Component {
   static propTypes = {
-    paginationData: ReactRouterPropTypes.paginationData.isRequired,
+    paginationData: PropTypes.array.isRequired,
   }
 
   constructor(props) {
