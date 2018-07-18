@@ -263,7 +263,7 @@ class ProductDisplayItemMain extends React.Component {
                             <li className="itemdetail-list-price" data-region="itemListPriceRegion">
                               <label className="itemdetail-list-price-label">
                                 Original Price&nbsp;
-                                                      </label>
+                              </label>
                               <span className="itemdetail-list-price-value" id={`category_item_list_price_${this.state.productData._code[0].code}`}>
                                 {listPrice}
                               </span>
@@ -294,10 +294,10 @@ class ProductDisplayItemMain extends React.Component {
                           {availabilityString}
                         </div>
                       ) : (
-                          <div>
-                            {availabilityString}
-                          </div>
-                        )}
+                        <div>
+                          {availabilityString}
+                        </div>
+                      )}
                     </label>
                   </li>
                   <li className={`itemdetail-release-date${this.state.productData._availability[0]['release-date'] ? '' : ' is-hidden'}`} data-region="itemAvailabilityDescriptionRegion">

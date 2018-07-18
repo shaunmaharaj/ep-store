@@ -26,6 +26,19 @@
       }
     ],
     "react/prop-types": "error",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
+        "components": [
+          "Label"
+        ],
+        "required": {
+          "every": [
+            "id"
+          ]
+        }
+      }
+    ]
   }
 }
