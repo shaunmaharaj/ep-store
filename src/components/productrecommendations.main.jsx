@@ -42,21 +42,17 @@ class ProductRecommendationsDisplayMain extends React.Component {
       if (CurrentView == 0) {
         data.push(
           <div className="carousel-item active" key={(CurrentItem)}>
-            {' '}
             <div className="row">
               {this.renderCarouselView(CurrentItem, totalCount, product, MaxItemsInOneCarouselView)}
             </div>
-            {' '}
           </div>,
         );
       } else {
         data.push(
           <div className="carousel-item " key={(CurrentItem + 1)}>
-            {' '}
             <div className="row">
               {this.renderCarouselView(CurrentItem, totalCount, product, MaxItemsInOneCarouselView)}
             </div>
-            {' '}
           </div>,
         );
       }
