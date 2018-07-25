@@ -19,7 +19,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import Productrecommendationfetchallpages from './productrecommendation.fetchallpages';
+import ProductRecommendationFetchAllPages from './productrecommendation.fetchallpages';
 
 
 class ProductRecommendationsDisplayMain extends React.Component {
@@ -30,13 +30,13 @@ class ProductRecommendationsDisplayMain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 2,
+      maxItemsInCarouselView: 2,
     };
   }
 
   render() {
     const data = [];
-    const { count } = this.state;
+    const { maxItemsInCarouselView } = this.state;
     const { productData } = this.props;
     /* Copy this section to add Carousel to the view */
     if (productData._recommendations[0]._crosssell[0].links.length > 0) {
@@ -44,13 +44,13 @@ class ProductRecommendationsDisplayMain extends React.Component {
       const length = product.pagination.results;
       const title = 'Product Recommendations';
       data.push(
-        <div key={title}>
+        <div key={product.self.type}>
           <label className="control-label" htmlFor="carousel1">
             {title}
           </label>
           <div className="col-md-12">
             <div className="carousel slide" data-ride="carousel" id="theCarousel">
-              <Productrecommendationfetchallpages product={product} length={length} count={count} />
+              <ProductRecommendationFetchAllPages product={product} length={length} count={maxItemsInCarouselView} />
               <a className="left carousel-control" href="#theCarousel" data-slide="prev">
                 <i className="glyphicon glyphicon-chevron-left" />
               </a>
@@ -62,33 +62,6 @@ class ProductRecommendationsDisplayMain extends React.Component {
         </div>,
       );
     }
-    /** Till here */
-    /* Copy this section to add Carousel to the view */
-    /*
-    if (productData._recommendations[0]._replacement[0].links.length > 0) {
-      const product = productData._recommendations[0]._replacement[0];
-      const length = product.pagination.results;
-      console.log(productData._recommendations[0]._replacement[0]);// eslint-disable-line no-console
-      data.push(
-        <div key={`_${Math.random().toString(36).substr(2, 9)}`}>
-          <label className="control-label" htmlFor="carousel2">
-            Product Replacements
-          </label>
-          <div className="col-md-12">
-            <div className="carousel slide" data-ride="carousel" id="thereplacementCarousel">
-              <Productrecommendationfetchallpages product={product} length={length} count={count} />
-              <a className="left carousel-control" href="#thereplacementCarousel" data-slide="prev">
-                <i className="glyphicon glyphicon-chevron-left" />
-              </a>
-              <a className="right carousel-control" href="#thereplacementCarousel" data-slide="next">
-                <i className="glyphicon glyphicon-chevron-right" />
-              </a>
-            </div>
-          </div>
-        </div>,
-      );
-    }
-    */
     /** Till here */
 
     return (
