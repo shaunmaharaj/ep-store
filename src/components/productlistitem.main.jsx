@@ -67,15 +67,21 @@ class ProductListItemMain extends React.Component {
         })
         .then(res => res.json())
         .then((res) => {
-          this.setState({
-            productData: res,
-          });
+          if (!this.isCancelled) {
+            this.setState({
+              productData: res,
+            });
+          }
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.error(error);
         });
     });
+  }
+
+  componentWillUnmount() {
+    this.isCancelled = true;
   }
 
   render() {
