@@ -20,7 +20,7 @@ import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { login } from '../utils/AuthService';
+import { login, logout } from '../utils/AuthService';
 import cortexFetch from '../utils/Cortex';
 
 const Config = require('Config');
@@ -56,6 +56,15 @@ class AppHeaderNavigationMain extends React.Component {
         if (res.status === 504) {
           const { history } = this.props;
           history.push('/maintenance');
+        }
+        if (res.status === 401 || res.status === 403) {
+          logout().then(() => {
+            login().then(() => {
+              const { history } = this.props;
+              history.push('/');
+              window.location.reload();
+            });
+          });
         }
         return res;
       })
