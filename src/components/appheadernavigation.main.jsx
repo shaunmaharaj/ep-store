@@ -76,9 +76,11 @@ class AppHeaderNavigationMain extends React.Component {
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
-        console.error(error);
-        const { history } = this.props;
-        history.push('/maintenance');
+        console.error(error.message);
+        if (error.message.includes('Failed to fetch')) {
+          const { history } = this.props;
+          history.push('/maintenance');
+        }
       });
   }
 

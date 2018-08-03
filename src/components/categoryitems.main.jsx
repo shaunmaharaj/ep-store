@@ -58,7 +58,7 @@ class CategoryItemsMain extends React.Component {
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.error(error);
+          console.error(error.message);
         });
     });
   }
@@ -83,7 +83,7 @@ class CategoryItemsMain extends React.Component {
           })
           .catch((error) => {
             // eslint-disable-next-line no-console
-            console.error(error);
+            console.error(error.message);
           });
       });
     }

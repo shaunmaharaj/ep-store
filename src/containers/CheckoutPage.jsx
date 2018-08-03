@@ -92,7 +92,7 @@ class CheckoutPage extends React.Component {
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.error(error);
+          console.error(error.message);
         });
     });
   }
@@ -122,7 +122,7 @@ class CheckoutPage extends React.Component {
         this.fetchOrderData();
       }).catch((error) => {
         // eslint-disable-next-line no-console
-        console.error(error);
+        console.error(error.message);
       });
     });
   }
@@ -142,7 +142,7 @@ class CheckoutPage extends React.Component {
         this.fetchOrderData();
       }).catch((error) => {
         // eslint-disable-next-line no-console
-        console.error(error);
+        console.error(error.message);
       });
     });
   }
