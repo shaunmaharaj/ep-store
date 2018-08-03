@@ -18,7 +18,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import intl from 'react-intl-universal';
 import App from './App';
+import * as UserPrefs from './utils/UserPrefs';
 
 // Import custom required styles
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,12 +29,24 @@ import './style/style.css';
 // Import custom required scripts
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const enCA = require('./localization/en-CA.json');
+const frFR = require('./localization/fr-FR.json');
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js', { scope: '/' })
-    // eslint-disable-next-line no-console
-    .then(() => console.log('Service Worker registered successfully.'))
-    // eslint-disable-next-line no-console
-    .catch(error => console.log('Service Worker registration failed:', error));
-}
+intl.init({
+  currentLocale: UserPrefs.getSelectedLocaleValue(),
+  locales: {
+    'en-CA': enCA,
+    'fr-FR': frFR,
+  },
+})
+  .then(() => {
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js', { scope: '/' })
+        // eslint-disable-next-line no-console
+        .then(() => console.log('Service Worker registered successfully.'))
+        // eslint-disable-next-line no-console
+        .catch(error => console.log('Service Worker registration failed:', error));
+    }
+  });
