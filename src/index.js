@@ -29,15 +29,17 @@ import './style/style.css';
 // Import custom required scripts
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-const enCA = require('./localization/en-CA.json');
-const frFR = require('./localization/fr-FR.json');
+const Config = require('Config');
+
+const locales = {};
+Config.supportedLocales.forEach((locale) => {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  locales[locale.value] = require(`./localization/${locale.value}.json`);
+});
 
 intl.init({
   currentLocale: UserPrefs.getSelectedLocaleValue(),
-  locales: {
-    'en-CA': enCA,
-    'fr-FR': frFR,
-  },
+  locales,
 })
   .then(() => {
     ReactDOM.render(<App />, document.getElementById('root'));

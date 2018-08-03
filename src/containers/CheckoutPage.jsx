@@ -213,7 +213,7 @@ class CheckoutPage extends React.Component {
     return (
       <div>
         <p>
-          {intl.get('no-shopping-address-message')}
+          {intl.get('no-shipping-address-message')}
         </p>
       </div>
     );
@@ -229,7 +229,7 @@ class CheckoutPage extends React.Component {
         <div data-region="shippingAddressesRegion" style={{ display: 'block' }}>
           <div>
             <h2>
-              {intl.get('shopping-address')}
+              {intl.get('shipping-address')}
             </h2>
             <div data-region="shippingAddressSelectorsRegion" className="checkout-region-inner-container">
               {this.renderShippingAddress()}

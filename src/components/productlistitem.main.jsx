@@ -177,7 +177,7 @@ class ProductListItemMain extends React.Component {
               </li>
               <li className={`category-item-release-date${productData._availability[0]['release-date'] ? '' : ' is-hidden'}`} data-region="itemAvailabilityDescriptionRegion">
                 <label htmlFor={`category_item_release_date_${productData._code[0].code}_label`} className="item-meta category-item-releaseDate-label">
-                  {intl.get('expexted-release-date')}
+                  {intl.get('expected-release-date')}
                   :&nbsp;
                 </label>
                 <span className="item-meta category-item-releaseDate-value" id={`category_item_release_date_${productData._code[0].code}`}>
