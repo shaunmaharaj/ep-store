@@ -145,5 +145,6 @@
   "email-slash-username": "E-m-a-i-l-/-U-s-e-r-n-a-m-e",
   "password-confirmation": "P-a-s-s-w-o-r-d- -C-o-n-f-i-r-m-a-t-i-o-n",
   "search-results": "S-e-a-r-c-h- -R-e-s-u-l-t-s",
-  "no-results-found": "N-o- -r-e-s-u-l-t-s- -f-o-u-n-d"
+  "no-results-found": "N-o- -r-e-s-u-l-t-s- -f-o-u-n-d",
+  "expexted-release-date": "E-x-p-e-c-t-e-d- -R-e-l-e-a-s-e- -D-a-t-e"
 }

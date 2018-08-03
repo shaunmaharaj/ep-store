@@ -356,7 +356,7 @@ class ProductDisplayItemMain extends React.Component {
                     }
                     <div className="form-group">
                       <label htmlFor="product_display_item_quantity_label" className="control-label">
-                        {intl.get('Quantity')}
+                        {intl.get('quantity')}
                       </label>
 
                       <div className="form-content">
