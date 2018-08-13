@@ -31,6 +31,7 @@ If you haven’t already, you’ll need to install the following software:
     * [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)<br/>
     * [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)<br/>
 * Install [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html) for executing unit tests.
+* Install [IntelliJ IDEA](https://www.jetbrains.com/idea/) optionally for creating/running unit tests.
 
 ### Configuration
 ##### `ep.config.json (options)`
@@ -118,13 +119,13 @@ Run all Tests: `mvn clean install -Dcucumber.options="--tags @smoketest"`<br/>
 Run Sanity Tests: `@sanity`<br/>
 
 *Maven Options:*
-* `-Dcucumber.options="--tags @smoketest"` - You can replace the tag to your own tag.
-* `-Dfailsafe.fork.count="1"` - This is the number of parallel tests at the same time. Default is 1 and can be changed to other values depending on number of TestsIT classes.
-* `-Premote -Dremote.web.driver.url="<REMOTE DRIVER IP>"` - The `remote` triggers tests to be executed using remote VM. The `remote.web.driver.url` specifies the URL of the remote VM. e.g. `http://<IP_ADDRESS>:4444/wd/hub`
+* `-Dcucumber.options="--tags @smoketest"` - You can replace the tag with your own tag.
+* `-Dfailsafe.fork.count="1"` - This is the number of parallel tests run at the same time. Default is 1 and can be changed to other values depending on number of TestsIT classes.
+* `-Premote -Dremote.web.driver.url="<REMOTE DRIVER IP>"` - The `remote` parameter triggers tests to be executed using a remote VM. The `remote.web.driver.url` specifies the URL of the remote VM. e.g. `http://<IP_ADDRESS>:4444/wd/hub`
     * Note: You have to have selenium grid setup in order to use this feature. Please refer to official documentation on Selenium Grid.
 
 **Running subset of tests:**
-* You can run a subset of tests by right clicking and run any one of TestsIT classes under `/selenium/src/test/java/com/elasticpath/cucumber/`
+* You can run a subset of tests in IntelliJ by right clicking and running any one of TestsIT classes under `/selenium/src/test/java/com/elasticpath/cucumber/`
 * You can create your own local runner class to run your own tagged tests. E.g. RunLocalTestsIT.java which runs your own tagged tests @local
     * Do not commit the local runner class and tags as they are only for your local testing purpose.
 
