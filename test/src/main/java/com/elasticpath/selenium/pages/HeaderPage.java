@@ -1,7 +1,5 @@
 package com.elasticpath.selenium.pages;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,28 +10,16 @@ public class HeaderPage extends AbstractPageObject {
 	@FindBy(id = "header_navbar_container")
 	private WebElement navigationBar;
 
-	@FindBy(id = "header_home_logo_link")
-	private WebElement headerHomeLogoLink;
-
-	@FindBy(id = "header_navbar_login_button")
-	private WebElement loginLink;
-
-	@FindBy(id = "header_navbar_cart_button")
-	private WebElement cartLink;
-
-	@FindBy(id = "header_navbar_loggedIn_button")
-	private WebElement loggedInLink;
-
-	@FindBy(id = "header_navbar_login_menu_profile_link")
-	private WebElement profileMenuLink;
-
-	@FindBy(id = "header_navbar_login_menu_logout_button")
-	private WebElement logoutMenuLink;
-
 	private final WebDriver driver;
+	private final static String CART_LINK_CSS = "#header_navbar_cart_button";
 	private final static String PARENT_CATEGORY_CSS = "li[data-name='%1s']";
 	private final static String SUB_CATEGORY_CSS = PARENT_CATEGORY_CSS + " > div[aria-label='navbarDropdown'] > a[title='%2s']";
-	private final static String searchInputCSS = "#header_navbar_search_container_input";
+	private final static String SEARCH_INPUT_CSS = "#header_navbar_search_container_input";
+	private final static String SEARCH_BUTTON_CSS = "#header_navbar_search_container_button";
+	private final static String LOGIN_BUTTON_CSS = "button[id='header_navbar_login_button']";
+	private final static String LOGGEDIN_BUTTON_CSS = "button[id='header_navbar_loggedIn_button']";
+	private final static String PROFILE_CSS = "span[id='header_navbar_login_menu_profile_link']";
+	private final static String LOGOUT_CSS = "button[id='header_navbar_login_menu_logout_button']";
 
 	/**
 	 * Constructor.
@@ -43,53 +29,52 @@ public class HeaderPage extends AbstractPageObject {
 	public HeaderPage(final WebDriver driver) {
 		super(driver);
 		this.driver = driver;
+		getWaitDriver().waitForPageToLoad();
 	}
 
 	@Override
 	public void verifyCorrectPageIsDisplayed() {
-		getWaitDriver().waitForPageToLoad();
-		assertThat(headerHomeLogoLink.isDisplayed())
-				.as("Failed to verify Header page")
-				.isTrue();
 	}
 
 	public CategoryPage selectCategory(final String categoryName) {
-		getWaitDriver().waitForPageToLoad();
 		navigationBar.findElement(By.cssSelector(String.format(PARENT_CATEGORY_CSS, categoryName))).click();
 		return new CategoryPage(driver);
 	}
 
 	public void selectParentCategory(final String parentCategoryName) {
-		getWaitDriver().waitForPageToLoad();
 		navigationBar.findElement(By.cssSelector(String.format(PARENT_CATEGORY_CSS, parentCategoryName))).click();
 	}
 
 	public CategoryPage selectSubCategory(final String parentCategory, final String subCategoryName) {
-		getWaitDriver().waitForPageToLoad();
 		navigationBar.findElement(By.cssSelector(String.format(SUB_CATEGORY_CSS, parentCategory, subCategoryName))).click();
 		return new CategoryPage(driver);
 	}
 
 	public void clickLoggedInLink() {
-		loggedInLink.click();
+		getWaitDriver().waitForElementToBeClickable(By.cssSelector(LOGGEDIN_BUTTON_CSS)).click();
 	}
 
 	public ProfilePage clickProfileMenuLink() {
 		clickLoggedInLink();
-		profileMenuLink.click();
+		getDriver().findElement(By.cssSelector(PROFILE_CSS)).click();
 		return new ProfilePage(driver);
 	}
 
 	public LoginPage clickLoginLink() {
-		loginLink.click();
+		getWaitDriver().waitForElementToBeClickable(By.cssSelector(LOGIN_BUTTON_CSS)).click();
 		return new LoginPage(driver);
 	}
 
 	public CartPage clickCartLink() {
-		getWaitDriver().waitForPageToLoad();
-
-		cartLink.click();
+		getDriver().findElement(By.cssSelector(CART_LINK_CSS)).click();
 		return new CartPage(driver);
+	}
+
+	public SearchResultsPage searchForKeyword(final String keyword) {
+		clearAndType(SEARCH_INPUT_CSS, keyword);
+		getWaitDriver().waitForPageToLoad();
+		getDriver().findElement(By.cssSelector(SEARCH_BUTTON_CSS)).click();
+		return new SearchResultsPage(driver);
 	}
 
 }

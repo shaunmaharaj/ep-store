@@ -2,23 +2,13 @@ package com.elasticpath.selenium.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 public class ProductPage extends AbstractPageObject {
 
-	@FindBy(className = "itemdetail-details")
-	private WebElement itemDetail;
-
-	@FindBy(id = "product_display_item_add_to_cart_button")
-	private WebElement addToCartButton;
-
-	@FindBy(id = "product_display_item_quantity_select")
-	private WebElement quantitySelect;
-
-	private final String SKU_OPTION_SELECT_CSS = "select[id*='product_display_item_sku_select_'][id*='%s']";
-
+	private final static String SKU_OPTION_SELECT_CSS = "select[id*='product_display_item_sku_select_'][id*='%s']";
+	private final static String ADD_TO_CART_BUTTON_CSS = "button[id='product_display_item_add_to_cart_button']";
+	private final static String QUANTITY_SELECT_CSS = "select[id='product_display_item_quantity_select']";
 
 	private final WebDriver driver;
 
@@ -34,15 +24,16 @@ public class ProductPage extends AbstractPageObject {
 
 	@Override
 	public void verifyCorrectPageIsDisplayed() {
+		getWaitDriver().waitForPageToLoad();
 	}
 
 	public CartPage clickAddToCartButton() {
-		clickButton(By.id("product_display_item_add_to_cart_button"));
+		clickButton(ADD_TO_CART_BUTTON_CSS);
 		return new CartPage(driver);
 	}
 
 	public void selectQuantity(final String quantity) {
-		new Select(quantitySelect).selectByVisibleText(quantity);
+		new Select(getDriver().findElement(By.cssSelector(QUANTITY_SELECT_CSS))).selectByVisibleText(quantity);
 	}
 
 	public void selectSkuOption(final String skuOption, final String choice) {

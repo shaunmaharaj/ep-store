@@ -2,29 +2,19 @@ package com.elasticpath.selenium.pages;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class CheckoutPage extends AbstractPageObject {
 
-	@FindBy(className = "checkout-container")
-	private WebElement checkoutContainer;
-
-	@FindBy(css = "div[data-region='checkoutActionRegion'] button.btn-cmd-submit-order")
-	private WebElement completeOrderButton;
-
-	@FindBy(css = "div[data-region='billingAddressesRegion'] button.checkout-new-address-btn")
-	private WebElement addNewBillingAddress;
-
-	@FindBy(css = "div[data-region='shippingAddressesRegion'] button.checkout-new-address-btn")
-	private WebElement addNewShippingAddress;
-
-	@FindBy(css = "div[data-region='paymentMethodsRegion'] button.checkout-new-payment-btn")
-	private WebElement addNewPaymentMethod;
-
-
 	private final WebDriver driver;
+	private final static String CHECKOUTPAGE_CSS = "div[class='checkout-container container']";
+	private final static String COMPLETE_ORDER_BUTTON_CSS = "div[data-region='checkoutActionRegion'] button.btn-cmd-submit-order";
+	private final static String ADD_NEW_BILLING_ADDRESS_CSS = "div[data-region='billingAddressesRegion'] button.checkout-new-address-btn";
+	private final static String ADD_NEW_SHIPPING_ADDRESS_CSS = "div[data-region='shippingAddressesRegion'] button.checkout-new-address-btn";
+	private final static String ADD_NEW_PAYMENT_CSS = "div[data-region='paymentMethodsRegion'] button.checkout-new-payment-btn";
 
 	/**
 	 * Constructor.
@@ -38,23 +28,24 @@ public class CheckoutPage extends AbstractPageObject {
 
 	@Override
 	public void verifyCorrectPageIsDisplayed() {
-		assertThat(checkoutContainer.isDisplayed())
-				.as("Failed to verify Checkout page")
+		getWaitDriver().waitForPageToLoad();
+		assertThat(getDriver().findElement(By.cssSelector(CHECKOUTPAGE_CSS)).isDisplayed())
+				.as("Failed to load Checkout page")
 				.isTrue();
 	}
 
 	public NewAddressPage clickNewAddressButton() {
-		clickButton(addNewBillingAddress);
+		clickButton(getDriver().findElement(By.cssSelector(ADD_NEW_BILLING_ADDRESS_CSS)));
 		return new NewAddressPage(driver);
 	}
 
 	public NewPaymentMethodPage clickNewPaymentMethodButton() {
-		clickButton(addNewPaymentMethod);
+		clickButton(getDriver().findElement(By.cssSelector(ADD_NEW_PAYMENT_CSS)));
 		return new NewPaymentMethodPage(driver);
 	}
 
 	public OrderConfirmationPage clickCompleteOrderButton() {
-		clickButton(completeOrderButton);
+		clickButton(getDriver().findElement(By.cssSelector(COMPLETE_ORDER_BUTTON_CSS)));
 		return new OrderConfirmationPage(driver);
 	}
 

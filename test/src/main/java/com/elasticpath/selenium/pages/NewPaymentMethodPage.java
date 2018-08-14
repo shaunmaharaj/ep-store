@@ -95,7 +95,7 @@ public class NewPaymentMethodPage extends AbstractPageObject {
 		enterCardHolderName("Test User");
 		enterCardNumber("411111111111111");
 		selectExpiryMonth("10");
-		selectExpiryYear("2020");
+		selectExpiryYear("2025");
 		enterSecurityCode("111");
 		continueButton.click();
 	}

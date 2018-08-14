@@ -85,8 +85,8 @@ public abstract class AbstractPageObject extends AbstractPage {
 		}
 	}
 
-	public void clickButton(By by) {
-		getWaitDriver().waitForElementToBeClickable(by).click();
+	public void clickButton(final String css) {
+		getWaitDriver().waitForElementToBeClickable(getDriver().findElement(By.cssSelector(css))).click();
 	}
 
 	public void clickButton(final WebElement element) {
@@ -101,13 +101,12 @@ public abstract class AbstractPageObject extends AbstractPage {
 	 */
 	public void clearAndType(final String cssString, final String text) {
 		getWaitDriver().waitForElementToBeNotStale(cssString);
-		WebElement element = getDriver().findElement(By.cssSelector(cssString));
 
-		element.clear();
-		element.click();
+		getDriver().findElement(By.cssSelector(cssString)).clear();
+		getDriver().findElement(By.cssSelector(cssString)).click();
 
 		if (text != null && !text.isEmpty()) {
-			element.sendKeys(text);
+			getWaitDriver().waitForElementToBeVisible(By.cssSelector(cssString)).sendKeys(text);
 			sleep(500);
 		}
 	}

@@ -2,6 +2,7 @@ package com.elasticpath.selenium.pages;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,28 +10,15 @@ import org.openqa.selenium.support.FindBy;
 import com.elasticpath.util.CustomerInfo;
 
 public class CheckoutSignInPage extends AbstractPageObject {
-	@FindBy(css = ".container .checkout-auth-option-list")
-	private WebElement checkoutAuthPage;
-
-	@FindBy(css = "div[data-region='checkoutAutRegisterOptionRegion'] button.checkout-auth-option-register-btn")
-	private WebElement registerButton;
-
-	@FindBy(css = "div[data-region='anonymousCheckoutFeedbackRegion'] ~div input[id='Email']")
-	private WebElement anonymousEmailInput;
-
-	@FindBy(css = "div[data-region='anonymousCheckoutFeedbackRegion'] ~button.checkout-auth-option-anonymous-checkout-btn")
-	private WebElement anoymousCheckoutButton;
-
-	@FindBy(css = "input[id='registration_form_emailUsername']")
-	private WebElement existingEmailInput;
-
-	@FindBy(css = "input[id='registration_form_password']")
-	private WebElement existingUserPasswordInput;
-
-	@FindBy(css = ".checkout-auth-option-login-btn")
-	private WebElement loginAndContinueButton;
 
 	private final WebDriver driver;
+	private final static String CHECKOUT_AUTH_PAGE = ".container .checkout-auth-option-list";
+	private final static String REGISTER_BUTTON_CSS = "div[data-region='checkoutAutRegisterOptionRegion'] button.checkout-auth-option-register-btn";
+	private final static String ANONYMOUS_EMAIL_INPUT = "div[data-region='anonymousCheckoutFeedbackRegion'] ~div input[id='Email']";
+	private final static String ANONYMOUS_CHECKOUT_BUTTON = "div[data-region='anonymousCheckoutFeedbackRegion'] ~button.checkout-auth-option-anonymous-checkout-btn";
+	private final static String EXISTING_USER_EMAIL_INPUT = "input[id='registration_form_emailUsername']";
+	private final static String EXISTING_USER_PASSWORD_INPUT = "input[id='registration_form_password']";
+	private final static String EXISTING_USER_LOGIN_BUTTON = ".checkout-auth-option-login-btn";
 
 	/**
 	 * Constructor.
@@ -44,7 +32,8 @@ public class CheckoutSignInPage extends AbstractPageObject {
 
 	@Override
 	public void verifyCorrectPageIsDisplayed() {
-		assertThat(checkoutAuthPage.isDisplayed())
+		getWaitDriver().waitForPageToLoad();
+		assertThat(getDriver().findElement(By.cssSelector(CHECKOUT_AUTH_PAGE)).isDisplayed())
 				.as("Failed to load Checkout Sign In page")
 				.isTrue();
 	}
@@ -54,7 +43,7 @@ public class CheckoutSignInPage extends AbstractPageObject {
 	 * @return RegisterPage
 	 */
 	public RegisterPage clickRegisterButton() {
-		clickButton(registerButton);
+		clickButton(getDriver().findElement(By.cssSelector(REGISTER_BUTTON_CSS)));
 		return new RegisterPage(driver);
 	}
 
@@ -64,8 +53,8 @@ public class CheckoutSignInPage extends AbstractPageObject {
 	 */
 	public CheckoutPage anonymousCheckout() {
 		CustomerInfo customerInfo = new CustomerInfo();
-		clearAndType(anonymousEmailInput, customerInfo.getUuid() + "test@elasticpath.com");
-		clickButton(anoymousCheckoutButton);
+		clearAndType(getDriver().findElement(By.cssSelector(ANONYMOUS_EMAIL_INPUT)), customerInfo.getUuid() + "test@elasticpath.com");
+		clickButton(getDriver().findElement(By.cssSelector(ANONYMOUS_CHECKOUT_BUTTON)));
 		return new CheckoutPage(driver);
 	}
 
@@ -76,11 +65,10 @@ public class CheckoutSignInPage extends AbstractPageObject {
 	 * @return CheckoutPage
 	 */
 	public CheckoutPage registeredShopperCheckout(final String userName, final String password) {
-		clearAndType(existingEmailInput, userName);
-		clearAndType(existingUserPasswordInput, password);
-		clickButton(loginAndContinueButton);
+		clearAndType(getDriver().findElement(By.cssSelector(EXISTING_USER_EMAIL_INPUT)), userName);
+		clearAndType(getDriver().findElement(By.cssSelector(EXISTING_USER_PASSWORD_INPUT)), password);
+		clickButton(getDriver().findElement(By.cssSelector(EXISTING_USER_LOGIN_BUTTON)));
 		return new CheckoutPage(driver);
 	}
-
 
 }

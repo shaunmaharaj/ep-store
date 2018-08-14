@@ -5,31 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 public class CartPage extends AbstractPageObject {
 
-	@FindBy(className = "cart-container")
-	private WebElement cartContainer;
-
-	@FindBy(className = "btn-cmd-checkout")
-	private WebElement checkoutButton;
-
-	@FindBy(id = "promo-code")
-	private WebElement promoCode;
-
-	@FindBy(id = "cart-lineItem-select-quantity")
-	private WebElement quantitySelect;
-
-	@FindBy(css = "div[data-region='itemTotalPriceRegion'] .cart-total-purchase-price")
-	private WebElement cartLineItemPriceElement;
-
-	@FindBy(css ="button.btn-cart-removelineitem")
-	private WebElement removeLineItemButton;
-
-	private final static String removeButtonCSS = "button.btn-cart-removelineitem";
-	private final static String emptyCartContainerCSS = ".cart-empty-container";
+	private final static String REMOVE_BUTTON_CSS = "button.btn-cart-removelineitem";
+	private final static String EMPTY_CART_CONTAINER_CSS = ".cart-empty-container";
+	private final static String CART_CONTAINER_CSS = "div[class='cart-container container']";
+	private final static String CHECKOUT_BUTTON_CSS = "button[class='btn-cmd-checkout']";
+	private final static String QUANTITY_SELECT_CSS = "select[id='cart-lineItem-select-quantity']";
+	private final static String CART_LINE_ITEM_PRICE_CSS = "div[data-region='itemTotalPriceRegion'] .cart-total-purchase-price";
+	private final static String REMOVE_LINEITEM_BUTTON_CSS = "button.btn-cart-removelineitem";
 
 	private final WebDriver driver;
 
@@ -45,15 +31,19 @@ public class CartPage extends AbstractPageObject {
 
 	@Override
 	public void verifyCorrectPageIsDisplayed() {
+		getWaitDriver().waitForPageToLoad();
+		assertThat(isElementPresent(By.cssSelector(CART_CONTAINER_CSS)))
+				.as("Not in Cart Page")
+				.isTrue();
 	}
 
 	public CheckoutPage clickProceedToCheckoutButton() {
-		clickButton(checkoutButton);
+		clickButton(getDriver().findElement(By.cssSelector(CHECKOUT_BUTTON_CSS)));
 		return new CheckoutPage(driver);
 	}
 
 	public CheckoutSignInPage proceedToCheckoutSignIn() {
-		clickButton(checkoutButton);
+		clickButton(getDriver().findElement(By.cssSelector(CHECKOUT_BUTTON_CSS)));
 		return new CheckoutSignInPage(driver);
 	}
 
@@ -64,7 +54,7 @@ public class CartPage extends AbstractPageObject {
 	}
 
 	public void updateCartLineItemQuantity(final String quantity) {
-		new Select(quantitySelect).selectByVisibleText(quantity);
+		new Select(getDriver().findElement(By.cssSelector(QUANTITY_SELECT_CSS))).selectByVisibleText(quantity);
 	}
 
 //	TODO verify price based on given lineitem name.
@@ -72,11 +62,11 @@ public class CartPage extends AbstractPageObject {
 		getWaitDriver().waitForPageToLoad();
 		assertThat(cartLineItemTotalPrice)
 				.as("Expected cart line item total price not match.")
-				.isEqualTo(cartLineItemPriceElement.getText());
+				.isEqualTo(getDriver().findElement(By.cssSelector(CART_LINE_ITEM_PRICE_CSS)).getText());
 	}
 
 	public void removeCartLineItem(final String productName) {
-		clickButton(removeLineItemButton);
+		clickButton(getDriver().findElement(By.cssSelector(REMOVE_LINEITEM_BUTTON_CSS)));
 	}
 
 	public void verifyLineItemNotExist(final String productName) {
@@ -90,12 +80,12 @@ public class CartPage extends AbstractPageObject {
 
 	public void clearCart() {
 		setWebDriverImplicitWait(3);
-		if(isElementPresent(By.cssSelector(emptyCartContainerCSS))) {
+		if(isElementPresent(By.cssSelector(EMPTY_CART_CONTAINER_CSS))) {
 
-			for (WebElement remoteButton : getDriver().findElements(By.cssSelector(removeButtonCSS))) {
-				getDriver().findElement(By.cssSelector(removeButtonCSS)).click();
+			for (WebElement remoteButton : getDriver().findElements(By.cssSelector(REMOVE_BUTTON_CSS))) {
+				getDriver().findElement(By.cssSelector(REMOVE_BUTTON_CSS)).click();
 				getWaitDriver().waitForPageToLoad();
-				assertThat(isElementPresent(By.cssSelector(emptyCartContainerCSS)))
+				assertThat(isElementPresent(By.cssSelector(EMPTY_CART_CONTAINER_CSS)))
 						.as("Cart is not empty")
 						.isTrue();
 			}

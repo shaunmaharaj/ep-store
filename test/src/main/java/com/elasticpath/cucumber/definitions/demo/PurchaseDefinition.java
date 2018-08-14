@@ -21,6 +21,7 @@ import com.elasticpath.selenium.pages.OrderConfirmationPage;
 import com.elasticpath.selenium.pages.ProductPage;
 import com.elasticpath.selenium.pages.PurchaseReceiptPage;
 import com.elasticpath.selenium.pages.RegisterPage;
+import com.elasticpath.selenium.pages.ProfilePage;
 import com.elasticpath.util.CustomerInfo;
 import com.elasticpath.util.ProductInfo;
 
@@ -39,6 +40,7 @@ public class PurchaseDefinition {
 	private PurchaseReceiptPage purchaseReceiptPage;
 	private CheckoutSignInPage checkoutSignInPage;
 	private RegisterPage registerPage;
+	private ProfilePage profilePage;
 
 
 	public PurchaseDefinition() {
@@ -119,7 +121,9 @@ public class PurchaseDefinition {
 
 	@Then("^the purchase status should be (.+)$")
 	public void verifyPurchaseStatus(final String purchaseStatus) {
-		purchaseReceiptPage.verifyPurchaseStatus(purchaseStatus);
+		// purchaseReceiptPage.verifyPurchaseStatus(purchaseStatus);
+		headerPage.clickProfileMenuLink();
+		// profilePage.selectPurchase();
 	}
 
 	private void navigateToCheckoutPage() {

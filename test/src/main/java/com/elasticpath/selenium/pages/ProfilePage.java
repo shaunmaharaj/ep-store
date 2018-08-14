@@ -2,6 +2,7 @@ package com.elasticpath.selenium.pages;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,12 +24,22 @@ public class ProfilePage extends AbstractPageObject {
 	@FindBy(css = "div[data-region='create-streetAddress-btn-container'] button.streetAddress-save-btn")
 	private WebElement savePersonalInfoButton;
 
+	@FindBy(css = "div[data-region='profilePurchaseHistoryRegion']")
+	private WebElement profilePurchaseHistoryRegion;
+
+	@FindBy(css = "td[data-el-value='purchaseNumber']")
+	private WebElement purchaseNumber;
 
 	@FindBy(css = "div[data-region='profileAddressesRegion'] button.profile-new-address-btn")
 	private WebElement addProfileNewAddress;
 
 	@FindBy(css = "div[data-region='paymentMethodsRegion'] button.profile-new-address-btn")
 	private WebElement addProfileNewPaymentMethod;
+
+	@FindBy(id = "profile_purchase_number_link_20014")
+	private WebElement purchaseIdLink;
+
+	private final static String PURCHASE_ID_LINK_CSS = "a[id='profile_purchase_number_link_%1s']";
 
 
 	private final WebDriver driver;
@@ -82,6 +93,23 @@ public class ProfilePage extends AbstractPageObject {
 	public NewPaymentMethodPage clickProfileNewPaymentMethodButton() {
 		clickButton(addProfileNewPaymentMethod);
 		return new NewPaymentMethodPage(driver);
+	}
+
+	public PurchaseDetailsPage selectPurchase(final String orderNumber) {
+		getDriver().findElement(By.cssSelector(String.format(PURCHASE_ID_LINK_CSS, orderNumber))).click();
+		return new PurchaseDetailsPage(driver);
+	}
+
+	public void verifyPurchaseHistoryExist() {
+		assertThat(profilePurchaseHistoryRegion.isDisplayed())
+				.as("Failed to verify Profile page")
+				.isTrue();
+	}
+
+	public void verifyPurchaseNumber(final String purchaseNumber) {
+		assertThat(this.purchaseNumber.getText())
+				.as("Failed to verify Profile page")
+				.isEqualTo(purchaseNumber);
 	}
 
 }

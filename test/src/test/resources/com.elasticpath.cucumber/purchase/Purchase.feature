@@ -55,6 +55,10 @@ Feature: Purchase
       | M-Class         | Wheels, Tires, and Tire Covers | <product-1> |
       | Womens          |                                | <product-2> |
       | X-Class         | Visual                         | <product-3> |
+    And cart should contain following items
+      | <product-1> |
+      | <product-2> |
+      | <product-3> |
     When I login as following registered shopper
       | username | john@ep.com |
       | password | password    |

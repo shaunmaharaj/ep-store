@@ -9,18 +9,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class CategoryPage extends AbstractPageObject {
 
-	@FindBy(css = "div[data-region='categoryTitleRegion']")
-	private WebElement categoryTitleRegion;
-
-	@FindBy(className = "category-item-title")
-	private WebElement categoryItemTitle;
-
-	@FindBy(id = "rowFilterParent")
-	private WebElement rowFilterParent;
-
-	@FindBy(className = "jp-next")
-	private WebElement nextButton;
-
 	private final WebDriver driver;
 
 	/**
@@ -36,7 +24,6 @@ public class CategoryPage extends AbstractPageObject {
 	@Override
 	public void verifyCorrectPageIsDisplayed() {
 	}
-
 
 	public ProductPage selectProduct(final String productName) {
 		assertThat(isElementPresent(By.linkText(productName)))
