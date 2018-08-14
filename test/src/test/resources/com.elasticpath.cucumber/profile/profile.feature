@@ -1,7 +1,7 @@
 @smoketest @profile
 Feature: Profile
 
-  Scenario Outline: Navigate Profile
+  Scenario: Navigate Profile
     Given I login as following registered shopper
       | username | john@ep.com |
       | password | password    |

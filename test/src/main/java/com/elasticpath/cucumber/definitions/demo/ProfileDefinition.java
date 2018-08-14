@@ -20,8 +20,8 @@ public class ProfileDefinition {
 	}
 
 	@When("^I navigate to the profile page")
-	public void goToProfilePage() {
-		headerPage.clickProfileMenuLink();
+	public ProfilePage goToProfilePage() {
+		return headerPage.clickProfileMenuLink();
 	}
 
 	@Then("^I can see my purchase history")
