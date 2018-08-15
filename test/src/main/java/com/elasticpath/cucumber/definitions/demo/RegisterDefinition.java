@@ -3,6 +3,7 @@ package com.elasticpath.cucumber.definitions.demo;
 import java.util.List;
 
 import cucumber.api.java.en.When;
+import cucumber.api.java.en.Then;
 
 import com.elasticpath.selenium.SetUp;
 import com.elasticpath.selenium.pages.HeaderPage;
@@ -76,6 +77,16 @@ public class RegisterDefinition {
 
 	private void createDefaultPaymentMethod() {
 		newPaymentMethodPage.addProfileDefaultPaymentMethod();
+	}
+
+	@Then("^I can create a new address")
+	public void verifyCreateAddress() {
+		newAddressPage.verifyCorrectPageIsDisplayed();
+	}
+
+	@Then("^I can create a new payment method")
+	public void verifyAddPaymentMethod() {
+		newPaymentMethodPage.verifyCorrectPageIsDisplayed();
 	}
 
 }

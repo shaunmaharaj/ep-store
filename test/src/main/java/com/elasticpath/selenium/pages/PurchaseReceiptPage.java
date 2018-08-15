@@ -14,6 +14,9 @@ public class PurchaseReceiptPage extends AbstractPageObject {
 	@FindBy(css = "td[data-el-value='status']")
 	private WebElement purchaseStatus;
 
+	@FindBy(css = "td[data-el-value='purchaseNumber']")
+	private WebElement purchaseNumber;
+
 	private final WebDriver driver;
 
 	/**
@@ -37,6 +40,10 @@ public class PurchaseReceiptPage extends AbstractPageObject {
 		assertThat(this.purchaseStatus.getText())
 				.as("Failed to verify Purchase Receipt page")
 				.isEqualTo(purchaseStatus);
+	}
+
+	public String getPurchaseNumber() {
+		return this.purchaseNumber.getText();
 	}
 
 }

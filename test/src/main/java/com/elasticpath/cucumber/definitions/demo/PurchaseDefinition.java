@@ -20,6 +20,7 @@ import com.elasticpath.selenium.pages.NewPaymentMethodPage;
 import com.elasticpath.selenium.pages.OrderConfirmationPage;
 import com.elasticpath.selenium.pages.ProductPage;
 import com.elasticpath.selenium.pages.PurchaseReceiptPage;
+import com.elasticpath.selenium.pages.PurchaseDetailsPage;
 import com.elasticpath.selenium.pages.RegisterPage;
 import com.elasticpath.selenium.pages.ProfilePage;
 import com.elasticpath.util.CustomerInfo;
@@ -38,6 +39,7 @@ public class PurchaseDefinition {
 	private CartPage cartPage;
 	private OrderConfirmationPage orderConfirmationPage;
 	private PurchaseReceiptPage purchaseReceiptPage;
+	private PurchaseDetailsPage	purchaseDetailsPage;
 	private CheckoutSignInPage checkoutSignInPage;
 	private RegisterPage registerPage;
 	private ProfilePage profilePage;
@@ -121,9 +123,16 @@ public class PurchaseDefinition {
 
 	@Then("^the purchase status should be (.+)$")
 	public void verifyPurchaseStatus(final String purchaseStatus) {
-		// purchaseReceiptPage.verifyPurchaseStatus(purchaseStatus);
-		headerPage.clickProfileMenuLink();
-		// profilePage.selectPurchase();
+		purchaseReceiptPage.verifyPurchaseStatus(purchaseStatus);
+	}
+
+	@Then("^the purchase status in my purchase history should be (.+)$")
+	public void verifyPurchaseHistoryStatus(final String purchaseStatus) {
+		purchaseReceiptPage.verifyPurchaseStatus(purchaseStatus);
+		String purchaseNumber = purchaseReceiptPage.getPurchaseNumber();
+		profilePage = headerPage.clickProfileMenuLink();
+		purchaseDetailsPage = profilePage.selectPurchase(purchaseNumber);
+		purchaseDetailsPage.verifyPurchaseStatus(purchaseStatus);
 	}
 
 	private void navigateToCheckoutPage() {
