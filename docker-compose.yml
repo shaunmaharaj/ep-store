@@ -1,7 +1,7 @@
 version: '2'
 services:
   store:
-    image: ${REGISTRY_ADDRESS}/${NAMESPACE}/ep-store:${VERSION}
+    image: ${REGISTRY_ADDRESS}/${STORE_NAMESPACE}/ep-store:${STORE_IMAGE_TAG}
     container_name: store
     ports:
       - 8080:8080
@@ -11,7 +11,7 @@ services:
       - docker-compose.env
     restart: always
   mysql:
-    image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/wilma/mysql-ep-data:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/mysql-ep-data:${DOCKER_IMAGE_TAG}
     container_name: mysql
     ports:
       - 3306:3306
@@ -27,7 +27,7 @@ services:
     env_file:
       - docker-compose.env
   activemq:
-    image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/wilma/activemq:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/activemq:${DOCKER_IMAGE_TAG}
     container_name: activemq
     ports:
       - 61616:61616
@@ -37,7 +37,7 @@ services:
       - docker-compose.env
     restart: always
   batch:
-    image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/wilma/batch:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/batch:${DOCKER_IMAGE_TAG}
     container_name: batch
     ports:
       - 8084:8080
@@ -51,7 +51,7 @@ services:
       - docker-compose.env
     restart: always
   integration:
-    image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/wilma/integration:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/integration:${DOCKER_IMAGE_TAG}
     container_name: integration
     ports:
       - 8083:8080
@@ -65,7 +65,7 @@ services:
       - docker-compose.env
     restart: always
   search:
-    image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/wilma/search:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/search:${DOCKER_IMAGE_TAG}
     container_name: search
     ports:
       - 8082:8082
@@ -74,12 +74,12 @@ services:
     volumes:
       - /ep/logs:/root/ep/logs
       - /ep/tomcat-logs:/usr/local/tomcat/logs
-      - /ep/external-solrHome/solrHome-default:/ep/external-solrHome
+      - /ep/${SOLR_HOME_CONFIG}:/ep/external-solrHome
     env_file:
       - docker-compose.env
     restart: always
   cortex:
-    image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/wilma/cortex:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/cortex:${DOCKER_IMAGE_TAG}
     container_name: cortex
     ports:
       - 9080:8080
@@ -93,4 +93,3 @@ services:
     env_file:
       - docker-compose.env
     restart: always
-    

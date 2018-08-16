@@ -11,8 +11,9 @@ FROM node:10.5.0
 ARG BUILD_DATE
 ARG VERSION
 ARG VCS_REF
-ARG CORTEX_IP
-ARG STORE
+
+ENV CORTEX_IP=localhost
+ENV STORE=vestri
 
 LABEL build-date="$BUILD_DATE"
 LABEL name="ep/ep-store"
@@ -35,9 +36,7 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-RUN sed -i.bak "s/\"pathForProxy\":[[:blank:]]*\"[^\"]*\"/\"pathForProxy\": \"${CORTEX_IP}\"/" ./src/ep.config.json
-RUN sed -i.bak s/vestri/${STORE}/ ./src/ep.config.json
 
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+CMD [ "sh", "-c", "sed -i.bak s/localhost/${CORTEX_IP}/ ./src/ep.config.json && sed -i.bak s/vestri/${STORE}/ ./src/ep.config.json && npm start" ]
