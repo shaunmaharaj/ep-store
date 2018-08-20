@@ -175,5 +175,13 @@
 				<selenium.session.browser>chrome</selenium.session.browser>
 			</properties>
 		</profile>
+		<profile>
+			<id>headlesschrome</id>
+			<properties>
+				<selenium.session.browser>headlesschrome</selenium.session.browser>
+				<selenium.chrome.window.width>1920</selenium.chrome.window.width>
+				<selenium.chrome.window.height>1080</selenium.chrome.window.height>
+			</properties>
+		</profile>
 	</profiles>
 </project>

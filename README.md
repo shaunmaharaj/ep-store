@@ -140,6 +140,7 @@ Run Sanity Tests: `@sanity`<br/>
 *Maven Options:*
 * `-Dcucumber.options="--tags @smoketest"` - You can replace the tag with your own tag.
 * `-Dfailsafe.fork.count="1"` - This is the number of parallel tests run at the same time. Default is 1 and can be changed to other values depending on number of TestsIT classes.
+* `-Pheadlesschrome` - The `headlesschrome` parameter triggers tests to be executed without a UI
 * `-Premote -Dremote.web.driver.url="<REMOTE DRIVER IP>"` - The `remote` parameter triggers tests to be executed using a remote VM. The `remote.web.driver.url` specifies the URL of the remote VM. e.g. `http://<IP_ADDRESS>:4444/wd/hub`
     * Note: You have to have selenium grid setup in order to use this feature. Please refer to official documentation on Selenium Grid.
 
