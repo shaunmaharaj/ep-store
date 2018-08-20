@@ -12,7 +12,7 @@ ARG BUILD_DATE
 ARG VERSION
 ARG VCS_REF
 
-ENV CORTEX_IP=localhost
+ENV CORTEX=http://localhost:9080
 ENV STORE=vestri
 
 LABEL build-date="$BUILD_DATE"
@@ -31,12 +31,12 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
 
 # Bundle app source
 COPY . .
+RUN chmod +x ./entrypoint.sh
 
 EXPOSE 8080
 
-CMD [ "sh", "-c", "sed -i.bak s/localhost/${CORTEX_IP}/ ./src/ep.config.json && sed -i.bak s/vestri/${STORE}/ ./src/ep.config.json && npm start" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
+CMD [ "npm", "start" ]
