@@ -94,8 +94,16 @@ export function setAddAnalytics() {
   ga.plugin.execute('ec', 'setAction', 'add');
 }
 
+export function setRemoveAnalytics() {
+  ga.plugin.execute('ec', 'setAction', 'remove');
+}
+
 export function sendAddToCartAnalytics() {
   ga.plugin.execute('send', 'event', 'UX', 'click', 'add to cart');
+}
+
+export function sendRemoveFromCartAnalytics() {
+  ga.plugin.execute('send', 'event', 'UX', 'click', 'remove from cart');
 }
 
 export function sendAnalytics() {
