@@ -39,7 +39,7 @@ If you haven’t already, you’ll need to install the following software:
 ##### `ep.config.json (options)`
 
  - `cortexApi.path`, **required**, *string*:
-URL consisting of hostname and port which the storefront will use to reach Cortex. A web proxy is configured in this project's Webpack config for your convenience. Set this value to `http://localhost:8080/cortex` for local development to redirect Cortex calls to the local proxy. Set to `cortex` for production.
+URL consisting of hostname and port which the storefront will use to reach Cortex. A web proxy is configured in this project's Webpack config for your convenience. Set this value to `/cortex` for local development to redirect Cortex calls to the local proxy.
  - `cortexApi.scope`, **required**, *string*:
 Name of store to retreive data from Cortex.
  - `cortexApi.pathForProxy`, **required**, *string*:
@@ -52,13 +52,14 @@ The path the webpack proxy will route storefront Cortex calls to. URL consisting
  Google Analytics tracking ID to integrate with Google Analytics Suite and track user activity as it happens on your site.
 
 ### Sample Data:
-This project includes a set of sample data for your convenience.<br/>
-1. Clone/pull this repo to a directory of your choosing
-2. run `cd ep-store`
-3. run `npm install` to install dependencies
-4. Configure `./src/ep.config.json` as required for your environment: [here](#configuration)
-5. run `npm start` to start the server in development node
-6. navigate to `http://localhost:8080/` to see the running PWA
+This project includes a set of sample data for your convenience, and assumes you have a valid Elastic Path development environment.<br/>
+1. Extract and copy the sample catalog data contents from this project `ep-store/data` into your `ep-commerce/extensions/database/ext-data/src/main/resources/data` directory.
+2. Update `ep-commerce/extensions/database/ext-data/src/main/resources/data/liquibase-changelog.xml`.<br/>
+Add the following sample data to the file. Note that it should be the only sample data included within the sample data blocks: `<include file="ep-blueprint-data/liquibase-changelog.xml" relativeToChangelogFile="true" />`
+2. Update `extensions/database/ext-data/src/main/resources/environments/local/data-population.properties`. Append `ep-blueprint` to the liquibase.contexts property.
+3. In the command line, navigate to the `extensions/database` module.
+4. To run the Data Population tool, run the following command: `mvn clean install -Preset-db`
+5. For further information, refer to Elastic Path's developer documentation [Populate the Database](https://developers.elasticpath.com/commerce/7.3/Core-Commerce-Development/Setting-up-your-Developer-Environment/Populate-the-Database#ConfigureDemoDataSets)
 
 ### Setup (Development):
 1. Clone/pull this repo to a directory of your choosing
