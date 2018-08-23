@@ -10,6 +10,7 @@ Table of contents
    * [Development Quick-Start](#gh-md-toc)
       * [Pre-req](#pre-req)
       * [Configuration](#configuration)
+      * [Sample Data](#sample-data)
       * [Setup (Development)](#setup-development)
       * [Setup (Production)](#setup-production)
    * [Linting](#linting)
@@ -50,9 +51,18 @@ The path the webpack proxy will route storefront Cortex calls to. URL consisting
  - `gaTrackingId`, **optional**, *string*:
  Google Analytics tracking ID to integrate with Google Analytics Suite and track user activity as it happens on your site.
 
+### Sample Data:
+This project includes a set of sample data for your convenience.<br/>
+1. Clone/pull this repo to a directory of your choosing
+2. run `cd ep-store`
+3. run `npm install` to install dependencies
+4. Configure `./src/ep.config.json` as required for your environment: [here](#configuration)
+5. run `npm start` to start the server in development node
+6. navigate to `http://localhost:8080/` to see the running PWA
+
 ### Setup (Development):
 1. Clone/pull this repo to a directory of your choosing
-2. `cd ep-store`
+2. run `cd ep-store`
 3. run `npm install` to install dependencies
 4. Configure `./src/ep.config.json` as required for your environment: [here](#configuration)
 5. run `npm start` to start the server in development node
@@ -60,7 +70,7 @@ The path the webpack proxy will route storefront Cortex calls to. URL consisting
 
 ### Setup (Production):
 1. Clone/pull this repo to a directory of your choosing
-2. `cd ep-store`
+2. run `cd ep-store`
 3. run `npm install` to install dependencies
 4. Configure `./src/ep.config.json` as required for your environment: [here](#configuration)
 5. run `npm run start-prod` to start the server in production node
