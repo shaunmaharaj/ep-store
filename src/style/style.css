@@ -8416,6 +8416,7 @@ fieldset[disabled] .btn-itemdetail-addtocart.active {
  */
 .category-item-list-price-value {
   text-decoration: line-through;
+  color: #808080 !important;
 }
 .category-item-purchase-price,
 .category-item-rate-container {
@@ -8565,6 +8566,11 @@ fieldset[disabled] .btn-itemdetail-addtocart.active {
   min-height: 317px;
 
   height: 100%;
+}
+@media (min-width: 320px) {
+  .category-item-inner {
+    min-height: 240px;
+  }
 }
 @media (min-width: 769px) {
   .category-item-inner {
@@ -8744,6 +8750,7 @@ fieldset[disabled] .btn-itemdetail-addtocart.active {
 }
 .category-item-list-price-value {
   text-decoration: line-through;
+  color: #808080 !important;
 }
 /*
  * Copyright © 2014 Elastic Path Software Inc. All rights reserved.
