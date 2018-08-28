@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   store:
     image: ${REGISTRY_ADDRESS}/${STORE_NAMESPACE}/ep-store:${STORE_IMAGE_TAG}
@@ -10,6 +10,9 @@ services:
     env_file:
       - docker-compose.env
     restart: always
+    depends_on:
+      cortex:
+        condition: service_healthy
   mysql:
     image: ${REGISTRY_ADDRESS}/${STORE_NAMESPACE}/mysql-ep-blueprint:${STORE_IMAGE_TAG}
     container_name: mysql
