@@ -11,7 +11,7 @@ services:
       - docker-compose.env
     restart: always
   mysql:
-    image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/mysql-ep-data:${DOCKER_IMAGE_TAG}
+    image: ${REGISTRY_ADDRESS}/${STORE_NAMESPACE}/mysql-ep-blueprint:${STORE_IMAGE_TAG}
     container_name: mysql
     ports:
       - 3306:3306
