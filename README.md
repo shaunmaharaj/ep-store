@@ -73,9 +73,14 @@ Add the following sample data to the file. Note that it should be the only sampl
 1. Clone/pull this repo to a directory of your choosing
 2. Run `cd ep-store`
 3. Run `docker build -t ep-store -f ./docker/prod/Dockerfile .`
-4. Copy `docker-compose.yaml` and `nginx.conf` from `docker/prod/` to a new folder outside of project.
-5. Change to a newly created and replace `$CORTEX_URL` in `nginx.conf` with a URL of your cortex server as well as `$DOCKER_REPO` in `docker-compose.yaml` with `ep-store`
-6. Run `docker-compose up -d`
+4. Push `ep-store` image to your docker repo.
+
+##### On a host computer:
+
+5. Pull `ep-store` from your docker repo.
+6. Copy provided `docker-compose.yaml` and `nginx.conf` files from `docker/prod/` in this repo to a folder on the remote host.
+7. Replace `$CORTEX_URL` in `nginx.conf` with a URL of your cortex server as well as `$DOCKER_REPO` in `docker-compose.yaml` with `ep-store`.
+8. Run `docker-compose up -d`
 
 ## Linting
 This project has been set up with ESLint as our linting utility.<br/>
