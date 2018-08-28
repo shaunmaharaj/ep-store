@@ -1,5 +1,5 @@
 web:
-  image: 648265802301.dkr.ecr.us-west-2.amazonaws.com/ep-store-prod:latest
+  image: $DOCKER_REPO
   volumes:
    - ./nginx.conf:/etc/nginx/nginx.conf
   ports:
