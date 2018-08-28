@@ -9,4 +9,4 @@ ADD ./ /project
 RUN npm run build
 
 FROM nginx:1.15.1
-COPY --from=builder /project/webpack/dist/* /usr/share/nginx/www/
+COPY --from=builder /project/webpack/dist/ /usr/share/nginx/www
