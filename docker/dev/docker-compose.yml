@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.3'
 services:
   store:
     image: ${REGISTRY_ADDRESS}/${STORE_NAMESPACE}/ep-store:${STORE_IMAGE_TAG}
@@ -7,6 +7,9 @@ services:
       - 8080:8080
     volumes:
       - /etc:/etc
+    environment:
+      - CORTEX
+      - STORE
     env_file:
       - docker-compose.env
     restart: always
@@ -23,12 +26,12 @@ services:
     env_file:
       - docker-compose.env
     restart: always
-  mysql_up:
-    image: alpine
-    container_name: mysql_up
-    command: sh -c "while ! nc -z mysql 3306 > /dev/null; do echo waiting for mysql; sleep 3; done"
-    env_file:
-      - docker-compose.env
+    healthcheck:
+      test: ["CMD", "sh", "-c", "mysql --user=$$epDbUser --password=$$epDbPassword --execute='status' &> /dev/null"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
+      start_period: 40s
   activemq:
     image: ${REGISTRY_ADDRESS}/${CORTEX_NAMESPACE}/activemq:${DOCKER_IMAGE_TAG}
     container_name: activemq
@@ -45,8 +48,10 @@ services:
     ports:
       - 8084:8080
     depends_on:
-      - mysql_up
-      - activemq
+      activemq:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
     volumes:
       - /ep/logs:/root/ep/logs
       - /ep/tomcat-logs:/usr/local/tomcat/logs
@@ -59,8 +64,10 @@ services:
     ports:
       - 8083:8080
     depends_on:
-      - mysql_up
-      - activemq
+      activemq:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
     volumes:
       - /ep/logs:/root/ep/logs
       - /ep/tomcat-logs:/usr/local/tomcat/logs
@@ -73,11 +80,15 @@ services:
     ports:
       - 8082:8082
     depends_on:
-      - mysql_up
+      mysql:
+        condition: service_healthy
     volumes:
       - /ep/logs:/root/ep/logs
       - /ep/tomcat-logs:/usr/local/tomcat/logs
       - /ep/${SOLR_HOME_CONFIG}:/ep/external-solrHome
+    environment:
+      - SEARCH_ROLE=standalone
+      - SEARCH_MASTER_URL=http://search:8082/search
     env_file:
       - docker-compose.env
     restart: always
@@ -88,8 +99,10 @@ services:
       - 9080:8080
       - 1081:1081
     depends_on:
-      - mysql_up
-      - activemq
+      activemq:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
     volumes:
       - /ep/logs:/root/ep/logs
       - /ep/tomcat-logs:/usr/local/tomcat/logs

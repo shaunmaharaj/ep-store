@@ -12,6 +12,18 @@ timestamps {
           checkout scm
         }
       }
+      stage('BUILD') {
+        dir('scm') {
+          // Build the docker image, push to aws, clean up dangling images
+          sh """
+            docker build --tag ${DOCKER_REGISTRY_ADDRESS}/${STORE_NAMESPACE}/ep-store:\$(jq -r .version package.json) \
+              --build-arg BUILD_DATE="\$(date --rfc-3339=seconds)" --build-arg VERSION=\$(jq -r .version package.json) \
+              --build-arg VCS_REF=\$(git rev-parse HEAD) -f ./docker/dev/Dockerfile .
+            eval "\$(aws ecr get-login --no-include-email)"
+            docker push ${DOCKER_REGISTRY_ADDRESS}/${STORE_NAMESPACE}/ep-store:\$(jq -r .version package.json)
+          """
+        }
+      }
       stage('UNDEPLOY_EXISTING') {
         sh """
           ssh -i ${EC2_INSTANCE_SSH_KEY} ${EC2_INSTANCE_USER}@${EC2_INSTANCE_HOST} \"\"\"
@@ -24,14 +36,15 @@ timestamps {
             export CORTEX=http://${EC2_INSTANCE_HOST}:9080
             export STORE=${STORE_NAME}
 
-            if [ -d "ref-store-service" ]; then
-              if [ ! "\$(docker ps -aq)" ]; then
-                cd ref-store-service/docker/dev
-                docker-compose down
-              fi
-
+            if [ -d ref-store-service ]; then
               cd ~
               rm -rf ref-store-service
+            fi
+            if [ ! -z \\\"\\\$(docker ps -aq)\\\" ]; then
+              docker rm -f \\\$(docker ps -aq)
+            fi
+            if [ ! -z \\\"\\\$(docker images -q)\\\" ]; then
+              docker rmi \\\$(docker images -q)
             fi
           \"\"\"
         """
@@ -75,13 +88,17 @@ timestamps {
               curl https://intoli.com/install-google-chrome.sh | bash
               sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
             """
-            // Run tests using headless chrome
-            sh """
-              cd test
-              mvn -v
-              mvn clean install -Dcucumber.option=\"--tags @smoketest\" -Pheadlesschrome -s settings.xml
-            """
-            cucumber fileIncludePattern: '**/store.json', sortingMethod: 'ALPHABETICAL'
+            // Replace selenium.session.baseurl and run tests using headless chrome
+            try {
+              sh """
+                cd test
+                sed -i.bak \"s@\\(<selenium\\.session\\.baseurl>\\)[^<]*\\(<\\/selenium.session.baseurl>\\)@\\1http://${EC2_INSTANCE_HOST}:8080\\2@\" ./pom.xml
+                mvn -v
+                mvn clean install -Dcucumber.option=\"--tags @smoketest\" -Pheadlesschrome -s settings.xml
+              """
+            } finally {
+              cucumber fileIncludePattern: '**/store.json', sortingMethod: 'ALPHABETICAL'
+            }
           }
         }
       }
