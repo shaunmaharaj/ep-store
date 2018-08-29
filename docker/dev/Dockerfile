@@ -1,10 +1,11 @@
 # Build Command
-#
+# Run from project root
 # docker build \
 #   --tag ep/ep-store:$(jq -r .version package.json) \
 #   --build-arg "BUILD_DATE"="$(date --rfc-3339=seconds)" \
 #   --build-arg "VERSION"="$(jq -r .version package.json)" \
-#   --build-arg "VCS_REF"="$(git rev-parse HEAD)" .
+#   --build-arg "VCS_REF"="$(git rev-parse HEAD)"
+#   -f ./docker/dev/Dockerfile .
 
 FROM node:10.5.0
 
@@ -34,9 +35,9 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./docker/dev/entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "./docker/dev/entrypoint.sh" ]
 CMD [ "npm", "start" ]

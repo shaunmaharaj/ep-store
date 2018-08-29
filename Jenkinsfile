@@ -26,7 +26,7 @@ timestamps {
 
             if [ -d "ref-store-service" ]; then
               if [ ! "\$(docker ps -aq)" ]; then
-                cd ref-store-service
+                cd ref-store-service/docker/dev
                 docker-compose down
               fi
 
@@ -59,7 +59,7 @@ timestamps {
             export CORTEX=http://${EC2_INSTANCE_HOST}:9080
             export STORE=${STORE_NAME}
 
-            cd ref-store-service
+            cd ref-store-service/docker/dev
             eval '\$(aws ecr get-login --no-include-email)'
             docker-compose up -d
           \"\"\"
