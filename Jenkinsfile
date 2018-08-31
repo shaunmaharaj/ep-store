@@ -5,16 +5,16 @@ timestamps {
     node('node-small') {
       stage('SETUP') {
         deleteDir()
-        dir('solrHome') {
-          git branch: SOLR_HOME_BRANCH, url: SOLR_HOME_GIT_URL
-        }
         dir('scm'){
           checkout scm
+        }
+        dir('solrHome') {
+          git branch: SOLR_HOME_BRANCH, url: SOLR_HOME_GIT_URL
         }
       }
       stage('BUILD') {
         dir('scm') {
-          // Build the docker image, push to aws, clean up dangling images
+          // Build the docker image, push to aws
           sh """
             docker build --tag ${DOCKER_REGISTRY_ADDRESS}/${STORE_NAMESPACE}/ep-store:\$(jq -r .version package.json) \
               --build-arg BUILD_DATE="\$(date --rfc-3339=seconds)" --build-arg VERSION=\$(jq -r .version package.json) \
@@ -25,17 +25,9 @@ timestamps {
         }
       }
       stage('UNDEPLOY_EXISTING') {
+        // Remove if exists: working directory, docker containers, and images
         sh """
           ssh -i ${EC2_INSTANCE_SSH_KEY} ${EC2_INSTANCE_USER}@${EC2_INSTANCE_HOST} \"\"\"
-            export REGISTRY_ADDRESS=${DOCKER_REGISTRY_ADDRESS}
-            export STORE_NAMESPACE=${STORE_NAMESPACE}
-            export CORTEX_NAMESPACE=${CORTEX_NAMESPACE}
-            export STORE_IMAGE_TAG=${STORE_IMAGE_TAG}
-            export DOCKER_IMAGE_TAG=${DOCKER_IMAGE_TAG}
-            export SOLR_HOME_CONFIG=\$(basename ${SOLR_HOME_PATH})
-            export CORTEX=http://${EC2_INSTANCE_HOST}:9080
-            export STORE=${STORE_NAME}
-
             if [ -d ref-store-service ]; then
               cd ~
               rm -rf ref-store-service
@@ -50,6 +42,7 @@ timestamps {
         """
       }
       stage('DEPLOY') {
+        // Create the working directory
         sh """
           ssh -i ${EC2_INSTANCE_SSH_KEY} ${EC2_INSTANCE_USER}@${EC2_INSTANCE_HOST} "mkdir -p ref-store-service"
         """
@@ -81,7 +74,8 @@ timestamps {
         currentBuild.description = "Image Tag: ${DOCKER_IMAGE_TAG}"
       }
       stage('TEST') {
-        withEnv( ["PATH+MAVEN=${tool 'maven-3.5.2'}/bin", "JAVA_HOME=${tool 'jdk8u66'}" , "PATH+JDK=${JAVA_HOME}/bin"] ){
+        // Add JAVA_HOME and JAVA + MAVEN to path
+        withEnv( ["JAVA_HOME=${tool 'jdk8u66'}" , "PATH+JDK=${JAVA_HOME}/bin", "PATH+MAVEN=${tool 'maven-3.5.2'}/bin"] ){
           dir('scm') {
             // Download google chrome using script from https://intoli.com/blog/installing-google-chrome-on-centos/
             sh """
