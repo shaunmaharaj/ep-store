@@ -81,7 +81,6 @@ Add the following sample data to the file. **Note:** It should be the only sampl
 4. Push `ep-store` image to your docker repository.
 
 ##### On a host computer:
-
 5. Pull `ep-store` from your docker repository.
 6. In the repository, navigate to `docker/prod/`. Copy the provided `docker-compose.yaml` and `nginx.conf` files to a folder on the remote host.
 7. Replace `$CORTEX_URL` in `nginx.conf` with a URL of your cortex server as well as `$DOCKER_REPO` in `docker-compose.yaml` with `ep-store`.
@@ -104,7 +103,6 @@ If you plan to check in your code, ensure that you fix all of your linting error
 You can enable offline mode in [`./src/ep.config.json`](#configuration).<br/>
 
 **How it works**<br/>
-
 The *mock magic* is contained in `./src/utils/Mock.js`.<br/>
 The *mock data files* are expected to be stored in `./src/offlineData`.<br/>
 At a high level, **Mock.js** uses a map of **Requests to Responses** to send the mock data, given a Request. Instead of doing a fetch call to a url, it does a lookup in the map to retrieve/return the mock data. If mock data cannot be found for a request, an error is thrown.<br/>
@@ -115,8 +113,8 @@ If you're looking to create or modify mock data:<br/>
 * In your browser using the Developer Tools, view the **Network** tab for requests made by your *flow*. Filter your requests using the **XHRF** or **XHR and Fetch** filter.<br/>
 * Copy the response directly from your request into a *.json* file under the `./src/offlineData` directory.<br/>
 * In `.src/utils/Mock.js` add a variable for your data: `const myData = require('../offlineData/myData.json')`<br/>
-* Finally add your data into the map: `mockData.set(myData.self.uri, { status: myStatusCode, data: myData}`<br/>
-    * In the case of a **followlocation** you'll want to create a new variable for the request uri, and use that instead of `myData.self.uri`. This is because the responses include the *followed* url instead of the *request* url.<br/>z
+* Add your data into the map: `mockData.set(myData.self.uri, { status: myStatusCode, data: myData}`<br/>
+    * In the case of a **followlocation** you'll want to create a new variable for the request uri, and use that instead of `myData.self.uri`. This is because the responses include the *followed* url instead of the *request* url.<br/>
      * In the case of a request that doesn't have a response, you can add the request url with a status code and empty data. For example, see forms in *Mock.js*.
 
 **Verifying your data**<br/>
